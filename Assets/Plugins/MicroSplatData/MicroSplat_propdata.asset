@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MicroSplat_propdata
   m_EditorClassIdentifier: 
   values:
-  - {r: 40, g: 40, b: 0, a: 0}
+  - {r: 10, g: 10, b: 0, a: 0}
   - {r: 2, g: 2, b: 0, a: 0}
   - {r: 1, g: 1, b: 0, a: 0}
   - {r: 1, g: 1, b: 0, a: 0}
@@ -333,7 +333,7 @@ MonoBehaviour:
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1.25, a: 0.2}
+  - {r: 1, g: 1, b: 1.23, a: 4}
   - {r: 1, g: 1, b: 0.78, a: 0.83}
   - {r: 1, g: 1, b: 0.54, a: 1.28}
   - {r: 1, g: 1, b: 1, a: 1}

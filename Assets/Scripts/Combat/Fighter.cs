@@ -1,12 +1,14 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Survival.Combat{
+namespace Survivor.Combat{
     public class Fighter:MonoBehaviour
     {
-        public void Attack()
+        public void Attack(CombatTarget target)
         {
-            
+            print("Take That");
         }
     }
 }

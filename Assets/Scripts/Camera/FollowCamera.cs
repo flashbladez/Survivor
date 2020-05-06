@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Survival.Core
+namespace Survivor.Core
 {
     public class FollowCamera : MonoBehaviour
     {

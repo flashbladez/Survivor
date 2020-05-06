@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Survival.Movement{
+namespace Survivor.Movement{
+
     public class Mover : MonoBehaviour
     {
         void Start()
