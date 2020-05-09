@@ -20,11 +20,12 @@ namespace Survivor.Movement{
 
         public void MoveTo(Vector3 destination)
         {
-            GetComponent<NavMeshAgent>().destination = destination;
+            GetComponent<NavMeshAgent>().destination = destination;//remove for keyboard control
         }
 
         void UpdateAnimator()
         {
+            //remove first three lines for keyboard control
             Vector3 velocity = GetComponent<NavMeshAgent>().velocity;
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
             float speed = localVelocity.z;

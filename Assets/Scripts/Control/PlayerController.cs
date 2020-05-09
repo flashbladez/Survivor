@@ -10,12 +10,18 @@ namespace Survivor.Control{
     {
         void Update()
         {
-            InteractWithCombat();
+            if (InteractWithCombat() )
+            {
+                return;
+            }
             // click to move code
-            InteractWithMovement();
+            if(InteractWithMovement())
+            {
+                return;
+            }
         }
 
-        void InteractWithCombat()
+        bool InteractWithCombat()
         {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
             foreach(RaycastHit hit in hits)
@@ -29,28 +35,26 @@ namespace Survivor.Control{
                 {
                     GetComponent<Fighter>().Attack(target);
                 }
+                return true;
             }
+            return false;
         }
 
         // click to move code
-        void InteractWithMovement()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                MoveToCursor();
-            }
-        }
-
-        // click to move code
-        void MoveToCursor()
+        bool InteractWithMovement()
         {
             // click to move code
             RaycastHit hit;
             bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
             if (hasHit)
             {
-                GetComponent<Mover>().MoveTo(hit.point);
+                if (Input.GetMouseButtonDown(0))//remove this for keyboard control
+                {
+                    GetComponent<Mover>().MoveTo(hit.point);
+                }
+                return true;
             }
+            return false;
         }
 
 
