@@ -31,8 +31,6 @@ namespace Survivor.Combat{
 
         private bool GetIsInRange()
         {
-           // float distance = Vector3.Distance(transform.position, target.position);
-          //  print("Distance" + distance + "   " + "Weapon Range " + weaponRange + (Vector3.Distance(transform.position, target.position) < weaponRange));
             return Vector3.Distance(transform.position, target.position) < weaponRange;
         }
 
