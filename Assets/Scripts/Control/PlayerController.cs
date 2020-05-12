@@ -31,7 +31,7 @@ namespace Survivor.Control{
                 {
                     continue;
                 }
-                if (Input.GetMouseButtonDown(1))
+                if (Input.GetMouseButtonDown(0))
                 {
                     GetComponent<Fighter>().Attack(target);
                 }
@@ -50,7 +50,7 @@ namespace Survivor.Control{
             {
                 if (Input.GetMouseButtonDown(0))//remove this for keyboard control
                 {
-                    GetComponent<Mover>().MoveTo(hit.point);
+                    GetComponent<Mover>().StartMoveAction(hit.point);
                 }
                 return true;
             }

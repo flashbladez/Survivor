@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Survivor.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.AI;
 
 namespace Survivor.Movement{
 
-    public class Mover : MonoBehaviour
+    public class Mover : MonoBehaviour,IAction
     {
         NavMeshAgent navMeshAgent;
         void Start()
@@ -16,7 +17,14 @@ namespace Survivor.Movement{
     
         void Update()
         {
-        UpdateAnimator();
+            UpdateAnimator();
+        }
+
+        public void StartMoveAction(Vector3 destination)
+        {
+            GetComponent<ActionScheduler>().StartAction(this);
+          
+            MoveTo(destination); //remove for keyboard control
         }
 
         public void MoveTo(Vector3 destination)
@@ -26,7 +34,7 @@ namespace Survivor.Movement{
             navMeshAgent.isStopped = false;
         }
 
-        public void Stop()
+        public void Cancel()
         {
             //remove for keyboard control
             navMeshAgent.isStopped = true;
@@ -40,6 +48,5 @@ namespace Survivor.Movement{
             float speed = localVelocity.z;
             GetComponent<Animator>().SetFloat("forwardSpeed", speed);
         }
-
     }
 }

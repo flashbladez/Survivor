@@ -8,7 +8,7 @@ namespace Survivor.Core
     {
       
         [SerializeField] Transform target;
-        [SerializeField] float offset = 10f;
+       
        
        
         void Start()
@@ -20,7 +20,7 @@ namespace Survivor.Core
         {
             transform.position = target.transform.position;
            
-           // transform.position = new Vector3(target.position.x, target.position.y, target.position.z - offset);
+         
            
         }
 
