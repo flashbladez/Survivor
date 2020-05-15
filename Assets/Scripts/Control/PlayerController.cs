@@ -31,7 +31,7 @@ namespace Survivor.Control{
                 {
                     continue;
                 }
-                if (Input.GetMouseButtonDown(1))
+                if (Input.GetMouseButtonDown(0))
                 {
                     GetComponent<Fighter>().Attack(target);
                 }

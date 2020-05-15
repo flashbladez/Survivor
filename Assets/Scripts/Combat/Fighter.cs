@@ -5,11 +5,11 @@ using Survivor.Movement;
 using Survivor.Core;
 
 namespace Survivor.Combat{
-    public class Fighter : MonoBehaviour,IAction
+    public class Fighter : MonoBehaviour, IAction
     {
         [SerializeField] float weaponRange = 2f;
         [SerializeField] float timeBetweenAttacks = 2f;
-
+        [SerializeField] float weaponDamage = 5f;
         Transform target;
         float timeSinceLastAttack = 0f;
 
@@ -17,7 +17,7 @@ namespace Survivor.Combat{
         {
             timeSinceLastAttack += Time.deltaTime;
             //remove for keyboard control
-            if(target == null)
+            if (target == null)
             {
                 return;
             }
@@ -39,6 +39,14 @@ namespace Survivor.Combat{
                 GetComponent<Animator>().SetTrigger("attack");
                 timeSinceLastAttack = 0f;
             }
+
+        }
+
+        //animation event
+        void Hit()
+        {
+            Health healthComponent = target.GetComponent<Health>();
+            healthComponent.TakeDamage(weaponDamage);
         }
 
         private bool GetIsInRange()
@@ -51,7 +59,6 @@ namespace Survivor.Combat{
         {
             GetComponent<ActionScheduler>().StartAction(this);
             target = combatTarget.transform;
-           
         }
 
         public void Cancel()
@@ -59,10 +66,5 @@ namespace Survivor.Combat{
             target = null;
         }
 
-        //animation event
-        void Hit()
-        {
-
-        }
-    }
+    }    
 }

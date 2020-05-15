@@ -30,6 +30,7 @@ namespace Survivor.Movement{
         public void MoveTo(Vector3 destination)
         {
             //remove for keyboard control
+
             navMeshAgent.destination = destination;//remove for keyboard control
             navMeshAgent.isStopped = false;
         }
