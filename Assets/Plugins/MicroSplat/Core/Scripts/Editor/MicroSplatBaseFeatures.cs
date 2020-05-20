@@ -56,6 +56,8 @@ namespace JBooth.MicroSplat
          _PERTEXSSS,
          _PERTEXMICROSHADOWS,
          _PERTEXCURVEWEIGHT,
+         _CONTROLNOISEUV,
+         _NORMALIZEWEIGHTS,
          _BDRF1,
          _BDRF2,
          _BDRF3,
@@ -176,7 +178,6 @@ namespace JBooth.MicroSplat
          StandardShaderNoSheen
       }
 
-
       public enum DebugOutput
       {
          None = 0,
@@ -233,6 +234,14 @@ namespace JBooth.MicroSplat
          GradientSampler
       }
 
+      public enum BlendMode
+      {
+         HeightBlended,
+         UnityLinear,
+         NormalizedLinear
+      }
+
+      public BlendMode blendMode = BlendMode.HeightBlended;
       public bool useCustomSplatMaps = false;
 
       // state for the shader generation
@@ -255,16 +264,17 @@ namespace JBooth.MicroSplat
       public bool perTexUVRotation;
       public bool perTexInterpContrast;
       public bool perTexSSS;
-      public bool disableHeightBlend;
       public bool perTexHeightOffset;
       public bool perTexHeightContrast;
       public bool perTexFuzzyShading;
       public bool perTexCurveWeight;
       public bool originShift;
+      public bool controlNoiseUV;
       public bool emissiveArray = false;
       public UVMode uvMode = UVMode.UV;
       public bool perPixelNormal;
       public BranchSamples branchSamples = BranchSamples.Aggressive;
+
 
       public LightingMode lightingMode;
       public DebugOutput debugOutput = DebugOutput.None;
@@ -289,7 +299,7 @@ namespace JBooth.MicroSplat
       GUIContent CShaderPerfMode = new GUIContent("Blend Quality", "Can be used to reduce the number of textures blended per pixel to increase speed. May create blending artifacts when set too low");
       GUIContent CMaxTexCount = new GUIContent("Max Texture Count", "How many textures your terrain is allowed to use - This allows you to optimize our the work of sampling the extra control textures, and should be set to the lowest value great than the number of textures sets used on your terrain");
       GUIContent CLightingMode = new GUIContent("Lighting Model", "Override Unity's automatic selection of a BDRF function to a fixed one. This will force the shader to render in forward rendering mode when not set to automatic, and drastically alter specular response in NoSheen mode");
-      GUIContent CDisableHeightBlend = new GUIContent("Disable Height Blending", "Disables height based blending, which can be a minor speed boost on low end platforms");
+      GUIContent CHeightBlendMode = new GUIContent("Texture Blend Mode", "How should blending be performed between textures, using a height map, matching Unity, or a normalized linear blend");
       GUIContent CUVMode = new GUIContent("UV Mode", "Mode for Splat UV coordinates");
       GUIContent CForceShaderModel = new GUIContent("Shader Model", "Force a specific shader model to be used. By default, MicroSplat will use the minimum required shader model based on your shader settings. It's extremely rare that setting this to something other than default is necissary");
       GUIContent CSamplerMode = new GUIContent("Sampler Mode", "Force usage of manual mip selection in the shader (fast) or gradient samplers (slow). This will be forced to a non-default value when certain features are active, and usually you want Gradient, not LOD. See documentation for more info");
@@ -302,6 +312,7 @@ namespace JBooth.MicroSplat
       GUIContent CSSSScale = new GUIContent ("Scale", "Scale of Subsurface Scattering");
       GUIContent CBranchSamples = new GUIContent ("Branch Samples", "When Branch Samples is on, dynamic flow control is used to cull un-needed texture samples, which can speed up the shader when memory bound. In basic mode, unused splat weights are culled. In aggressive mode, triplanar, stochastic, and other features are culled as well. There should be no visible difference when setting this setting, and usually you want aggresive");
       GUIContent COriginShift = new GUIContent ("Origin Shift", "Enabled a global origin shift for large worlds. Please read the docs on how this has to be set");
+      GUIContent CControlNoiseUV = new GUIContent ("Control UV Noise", "Apply noise to the control UVs, which can break up linear filtering of splat maps");
 
       // Can we template these somehow?
       static Dictionary<DefineFeature, string> sFeatureNames = new Dictionary<DefineFeature, string>();
@@ -423,8 +434,11 @@ namespace JBooth.MicroSplat
          {
             perPixelNormal = EditorGUILayout.Toggle (CPerPixelNormal, perPixelNormal);
          }
-         disableHeightBlend = EditorGUILayout.Toggle(CDisableHeightBlend, disableHeightBlend);
+         
+         blendMode = (BlendMode)EditorGUILayout.EnumPopup(CHeightBlendMode, blendMode);
+         
          disableNormals = EditorGUILayout.Toggle(CDisableNormals, disableNormals);
+         controlNoiseUV = EditorGUILayout.Toggle (CControlNoiseUV, controlNoiseUV);
 
          // ok, a bit hackish for my taste, but don't want to chnage the API.
          // should pass in the editor instead, or a ref to this, so you can do this cleaner
@@ -478,6 +492,7 @@ namespace JBooth.MicroSplat
       static GUIContent CSmoothAO = new GUIContent("Smoothness/AO Array", "Texture Array with Smoothness and AO");
       static GUIContent CSpecular = new GUIContent ("Specular Array", "Specular Color array");
       static GUIContent CEmissiveMultiplier = new GUIContent ("Emissive Multiplier", "Increase/decrease strength of emission");
+      static GUIContent CNoiseUV = new GUIContent ("UV Noise Texture", "Texture for noise lookup");
 
       public override void DrawShaderGUI(MicroSplatShaderGUI shaderGUI, MicroSplatKeywords keywords, Material mat, MaterialEditor materialEditor, MaterialProperty[] props)
       {
@@ -537,7 +552,7 @@ namespace JBooth.MicroSplat
                   materialEditor.TexturePropertySingleLine (CSmoothAO, smoothAO);
                }
 
-               if (!disableHeightBlend)
+               if (blendMode == BlendMode.HeightBlended)
                {
                   var contrastProp = shaderGUI.FindProp ("_Contrast", props);
                   contrastProp.floatValue = EditorGUILayout.Slider (CInterpContrast, contrastProp.floatValue, 1.0f, 0.0001f);
@@ -566,6 +581,24 @@ namespace JBooth.MicroSplat
                if (mat.HasProperty("_SampleCountDiv"))
                {
                   materialEditor.FloatProperty (shaderGUI.FindProp ("_SampleCountDiv", props), "Debug Sample Divisor");
+               }
+
+               if (mat.HasProperty ("_NoiseUVParams"))
+               {
+                  var tex = shaderGUI.FindProp ("_NoiseUV", props);
+                  materialEditor.TexturePropertySingleLine (CNoiseUV, tex);
+                  MicroSplatUtilities.EnforceDefaultTexture (tex, "microsplat_def_perlin4");
+                  Vector4 noise = mat.GetVector ("_NoiseUVParams");
+
+                  EditorGUI.BeginChangeCheck ();
+                  noise.x = EditorGUILayout.FloatField ("UV Noise Frequency", noise.x);
+                  noise.y = EditorGUILayout.FloatField ("UV Noise Amplitude", noise.y);
+
+                  if (EditorGUI.EndChangeCheck ())
+                  {
+                     mat.SetVector ("_NoiseUVParams", noise);
+                     EditorUtility.SetDirty (mat);
+                  }
                }
             }
          }
@@ -631,6 +664,15 @@ namespace JBooth.MicroSplat
          {
             features.Add (GetFeatureName (DefineFeature._PERTEXMICROSHADOWS));
          }
+         if (blendMode == BlendMode.NormalizedLinear)
+         {
+            features.Add (GetFeatureName (DefineFeature._DISABLEHEIGHTBLENDING));
+            features.Add (GetFeatureName (DefineFeature._NORMALIZEWEIGHTS));
+         }
+         else if (blendMode == BlendMode.UnityLinear)
+         {
+            features.Add (GetFeatureName (DefineFeature._DISABLEHEIGHTBLENDING));
+         }
 
          if (pbrWorkflow == TextureArrayConfig.PBRWorkflow.Specular)
          {
@@ -672,10 +714,6 @@ namespace JBooth.MicroSplat
          else if (perfMode == PerformanceMode.Fastest)
          {
             features.Add(GetFeatureName(DefineFeature._MAX2LAYER));
-         }
-         if (disableHeightBlend)
-         {
-            features.Add(GetFeatureName(DefineFeature._DISABLEHEIGHTBLENDING));
          }
          if (maxTextureCount == MaxTextureCount.Four)
          {
@@ -808,6 +846,10 @@ namespace JBooth.MicroSplat
             {
                features.Add(GetFeatureName(DefineFeature._FORCEMODEL50));
             }
+         }
+         if (controlNoiseUV)
+         {
+            features.Add (GetFeatureName (DefineFeature._CONTROLNOISEUV));
          }
          if (perTexCurveWeight)
          {
@@ -1048,7 +1090,7 @@ namespace JBooth.MicroSplat
 
          perPixelNormal = HasFeature(keywords, DefineFeature._PERPIXNORMAL);
          uvMode = HasFeature(keywords, DefineFeature._WORLDUV) ? UVMode.WorldSpace : UVMode.UV;
-
+         
          perTexHeightOffset = HasFeature(keywords, DefineFeature._PERTEXHEIGHTOFFSET);
          perTexHeightContrast = HasFeature(keywords, DefineFeature._PERTEXHEIGHTCONTRAST);
 
@@ -1085,7 +1127,18 @@ namespace JBooth.MicroSplat
             maxTextureCount = MaxTextureCount.Sixteen;
          }
 
-         disableHeightBlend = HasFeature(keywords, DefineFeature._DISABLEHEIGHTBLENDING);
+         controlNoiseUV = HasFeature (keywords, DefineFeature._CONTROLNOISEUV);
+
+         blendMode = BlendMode.HeightBlended;
+         
+         if (HasFeature(keywords, DefineFeature._DISABLEHEIGHTBLENDING))
+         {
+            blendMode = BlendMode.UnityLinear;
+            if (HasFeature(keywords, DefineFeature._NORMALIZEWEIGHTS))
+            {
+               blendMode = BlendMode.NormalizedLinear;
+            }
+         }
 
          lightingMode = LightingMode.Automatic;
          if (HasFeature (keywords, DefineFeature._SPECULARFROMMETALLIC))
@@ -1340,6 +1393,13 @@ namespace JBooth.MicroSplat
 
          }
 
+         if (controlNoiseUV || System.Array.Exists<string>(features, e => e == "_GLOBALNOISEUV"))
+         {
+            sb.AppendLine ("      [NoScaleOffset]_NoiseUV (\"Noise UV texture\", 2D) = \"grey\" {}");
+            sb.AppendLine ("      _NoiseUVParams(\"Noise UV Params\", Vector) = (1, 1, 0, 0)");
+
+         }
+
          if (debugOutput == DebugOutput.SampleCount)
          {
             sb.AppendLine ("      _SampleCountDiv(\"SampleCount\", Float) = 90");
@@ -1469,7 +1529,7 @@ namespace JBooth.MicroSplat
 
 
 
-         if (!disableHeightBlend)
+         if (blendMode == BlendMode.HeightBlended)
          {
             perTexInterpContrast = DrawPerTexFloatSlider (index, 1, GetFeatureName (DefineFeature._PERTEXINTERPCONTRAST),
                keywords, propData, Channel.A, CPerTexInterp, -1.0f, 1.0f);

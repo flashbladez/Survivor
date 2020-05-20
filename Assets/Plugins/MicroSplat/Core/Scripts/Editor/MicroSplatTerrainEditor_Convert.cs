@@ -139,7 +139,6 @@ public partial class MicroSplatTerrainEditor : Editor
 #endif
 #if __MICROSPLAT_DETAILRESAMPLE__
                "_DISTANCERESAMPLE",
-               "_DETAILNOISE",
 #endif
 #if __MICROSPLAT_TRIPLANAR__
                "_TRIPLANAR",
@@ -436,14 +435,6 @@ public partial class MicroSplatTerrainEditor : Editor
                   }
                }
 
-               if (System.Array.Exists (selectedConfig.keywords, x => x == "_DETAILNOISE"))
-               {
-                  if (t.templateMaterial.HasProperty ("_DetailNoise"))
-                  {
-                     t.templateMaterial.SetTexture ("_DetailNoise", MicroSplatUtilities.GetAutoTexture ("microsplat_def_detail_noise"));
-                  }
-               }
-
                // now make sure others all have the same settings as well.
                for (int i = 0; i < terrains.Count; ++i)
                {
@@ -467,7 +458,11 @@ public partial class MicroSplatTerrainEditor : Editor
 
                t.keywordSO.keywords.Clear ();
                t.keywordSO.keywords = new List<string> (keywords);
-               
+
+               // force recompile, so that basemap shader name gets reset correctly..
+               MicroSplatShaderGUI.MicroSplatCompiler comp = new MicroSplatShaderGUI.MicroSplatCompiler ();
+               comp.Compile (t.templateMaterial);
+
                MicroSplatTerrain.SyncAll ();
 
                // trun on draw instanced if enabled and tessellation is disabled, unless render loop is LWRP/URP in which case it does work..

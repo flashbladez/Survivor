@@ -131,8 +131,6 @@ public class MicroSplatTerrain : MicroSplatObject
       #endif
       Material m = null;
 
-
-
       if (terrain.materialTemplate == matInstance && matInstance != null)
       {
          terrain.materialTemplate.CopyPropertiesFromMaterial(templateMaterial);

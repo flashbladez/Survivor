@@ -36,6 +36,9 @@ public partial class MicroSplatTerrainEditor : Editor
    static GUIContent biomeOverride = new GUIContent("Biome Map Override", "Biome map for this terrain");
 #endif
 
+#if __MICROSPLAT_STREAMS__
+   static GUIContent streamOverride = new GUIContent ("Stream Map Override", "Wetness, Puddles, Streams and Lava map for this terrain");
+#endif
 
    static GUIContent CTemplateMaterial = new GUIContent("Template Material", "Material to use for this terrain");
 
@@ -84,6 +87,7 @@ public partial class MicroSplatTerrainEditor : Editor
       {
          t.propData = MicroSplatShaderGUI.FindOrCreatePropTex(t.templateMaterial);
          EditorUtility.SetDirty(t);
+         MicroSplatObject.SyncAll ();
       }
 
       if (t.keywordSO == null)
@@ -102,6 +106,7 @@ public partial class MicroSplatTerrainEditor : Editor
          if (old != t.procTexCfg)
          {
             EditorUtility.SetDirty(t);
+            MicroSplatObject.SyncAll ();
          }
       }
 #endif
@@ -161,11 +166,14 @@ public partial class MicroSplatTerrainEditor : Editor
 
 #if __MICROSPLAT_PROCTEX__
       MicroSplatUtilities.DrawTextureField(t, biomeOverride, ref t.procBiomeMask, "_PROCEDURALTEXTURE");
+#endif
 
+#if __MICROSPLAT_STREAMS__
+      MicroSplatUtilities.DrawTextureField (t, streamOverride, ref t.streamTexture, "_WETNESS", "_PUDDLES", "_STREAMS", "_LAVA", false);
 #endif
 
 #if __MICROSPLAT_ADVANCED_DETAIL__
-      DrawAdvancedModuleDetailGUI(t);      
+      DrawAdvancedModuleDetailGUI (t);      
 #endif
       
 
@@ -217,8 +225,6 @@ public partial class MicroSplatTerrainEditor : Editor
 #endif
          t.keywordSO = EditorGUILayout.ObjectField("Keywords", t.keywordSO, typeof(MicroSplatKeywords), false) as MicroSplatKeywords;
          t.blendMat = EditorGUILayout.ObjectField(CBlendMat, t.blendMat, typeof(Material), false) as Material;
-         t.terrainDesc = EditorGUILayout.ObjectField("Terrain Descriptor", t.terrainDesc, typeof(Texture2D), false) as Texture2D;
-         t.perPixelNormal = EditorGUILayout.ObjectField("Normal Data", t.perPixelNormal, typeof(Texture2D), false) as Texture2D;
          t.addPass = EditorGUILayout.ObjectField("Add Pass", t.addPass, typeof(Shader), false) as Shader;
          EditorGUI.indentLevel -= 2;
       }

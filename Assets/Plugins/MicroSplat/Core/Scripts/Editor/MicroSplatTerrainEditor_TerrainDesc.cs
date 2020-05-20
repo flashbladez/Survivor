@@ -17,8 +17,8 @@ public partial class MicroSplatTerrainEditor : Editor
    public static void GenerateTerrainNormalMap(MicroSplatTerrain bt)
    {
       Terrain t = bt.GetComponent<Terrain>();
-      int w = t.terrainData.heightmapResolution;
-      int h = t.terrainData.heightmapResolution;
+      int w = t.terrainData.heightmapWidth;
+      int h = t.terrainData.heightmapHeight;
 
       Texture2D data = new Texture2D(w, h, TextureFormat.RGBA32, true, true);
       for (int x = 0; x < w; ++x)
@@ -66,8 +66,8 @@ public partial class MicroSplatTerrainEditor : Editor
    public static void GenerateTerrainBlendData(MicroSplatTerrain bt)
    {
       Terrain t = bt.GetComponent<Terrain>();
-      int w = t.terrainData.heightmapResolution;
-      int h = t.terrainData.heightmapResolution;
+      int w = t.terrainData.heightmapWidth;
+      int h = t.terrainData.heightmapHeight;
 
       Texture2D data = null;
 #if UNITY_2018_3_OR_NEWER
@@ -205,13 +205,15 @@ public partial class MicroSplatTerrainEditor : Editor
    }
 #endif
 
+
+   static GUIContent CTerrainDesc = new GUIContent ("Terrain Descriptor", "Holds information about the terrain for dynamic streams or terrain blending");
+   static GUIContent CPerPixelNormal = new GUIContent ("Per Pixel Normal", "Per Pixel normal map");
    public void DoTerrainDescGUI()
    {
       MicroSplatTerrain bt = target as MicroSplatTerrain;
       Terrain t = bt.GetComponent<Terrain>();
       if (t == null || t.terrainData == null)
       {
-         EditorGUILayout.HelpBox("No Terrain found, please add this component to your terrain", MessageType.Error);
          return;
       }
       if (t.materialTemplate == null)
@@ -242,6 +244,17 @@ public partial class MicroSplatTerrainEditor : Editor
 #if UNITY_2018_3_OR_NEWER
       bt.descriptorFormat = (MicroSplatObject.DescriptorFormat)EditorGUILayout.EnumPopup ("Descriptor Format", bt.descriptorFormat);
 #endif
+
+      MicroSplatUtilities.DrawTextureField (bt, CTerrainDesc, ref bt.terrainDesc, "_TERRAINBLENDING", "_DYNAMICFLOWS");
+      if (bt.terrainDesc != null)
+      {
+         EditorGUILayout.BeginHorizontal ();
+         int mem = bt.terrainDesc.width * bt.terrainDesc.height;
+         mem /= 128;
+         EditorGUILayout.LabelField ("Terrain Descriptor Data Memory: " + mem.ToString () + "kb");
+         EditorGUILayout.EndHorizontal ();
+      }
+
       if (GUILayout.Button(bt.terrainDesc == null ? "Generate Terrain Descriptor Data" : "Update Terrain Descriptor Data"))
       {
          GenerateTerrainBlendData(bt);
@@ -252,14 +265,7 @@ public partial class MicroSplatTerrainEditor : Editor
          bt.terrainDesc = null;
       }
 
-      if (bt.terrainDesc != null)
-      {
-         EditorGUILayout.BeginHorizontal();
-         int mem = bt.terrainDesc.width * bt.terrainDesc.height;
-         mem /= 128;
-         EditorGUILayout.LabelField("Terrain Descriptor Data Memory: " + mem.ToString() + "kb");
-         EditorGUILayout.EndHorizontal();
-      }
+      
 
       if (bt.blendMat == null && bt.templateMaterial != null && bt.keywordSO != null && bt.keywordSO.IsKeywordEnabled("_TERRAINBLENDING"))
       {
@@ -320,7 +326,7 @@ public partial class MicroSplatTerrainEditor : Editor
       }
 #endif
 
-
+      MicroSplatUtilities.DrawTextureField (bt, CPerPixelNormal, ref bt.perPixelNormal, "_PERPIXNORMAL");
       if (bt.perPixelNormal == null)
       {
          EditorGUILayout.HelpBox("Terrain Normal Data is not present, please generate", MessageType.Warning);

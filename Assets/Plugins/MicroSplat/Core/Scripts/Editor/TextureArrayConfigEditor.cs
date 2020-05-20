@@ -152,7 +152,12 @@ namespace JBooth.MicroSplat
          var path = AssetDatabase.GetAssetPath (t);
          if (!string.IsNullOrEmpty (path))
          {
-            var ti = (TextureImporter)AssetImporter.GetAtPath (path);
+            AssetImporter ai = AssetImporter.GetAtPath (path);
+            if (ai == null)
+            {
+               return -1;
+            }
+            var ti = (TextureImporter)ai;
             if (null == ti)
             {
                return -1;
@@ -1313,7 +1318,7 @@ namespace JBooth.MicroSplat
          {
             AssetImporter ai = AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(tex));
             TextureImporter ti = ai as TextureImporter;
-            if (ti != null && ti.maxTextureSize <= 256 || ti.textureCompression != TextureImporterCompression.Uncompressed)
+            if (ti != null && (ti.maxTextureSize <= 256 || ti.textureCompression != TextureImporterCompression.Uncompressed))
             {
                ti.maxTextureSize = 4096;
                ti.textureCompression = TextureImporterCompression.Uncompressed;
@@ -1367,8 +1372,10 @@ namespace JBooth.MicroSplat
          string ext, 
          bool isCluster = false)
       {
-
-         RestoreSourceTextures(src, cfg.sourceTextureSize);
+         if (cfg.sourceTextureSize == TextureArrayConfig.SourceTextureSize.Unchanged)
+         {
+            RestoreSourceTextures (src, cfg.sourceTextureSize);
+         }
 
          bool diffuseIsLinear = cfg.diffuseIsLinear;
 
@@ -2000,6 +2007,7 @@ namespace JBooth.MicroSplat
             var existing = AssetDatabase.LoadAssetAtPath<Texture2DArray>(diffPath);
             if (existing != null)
             {
+               diffuseArray.name = existing.name;
                EditorUtility.CopySerialized(diffuseArray, existing);
             }
             else
@@ -2012,6 +2020,8 @@ namespace JBooth.MicroSplat
             var existing = AssetDatabase.LoadAssetAtPath<Texture2DArray>(normSAOPath);
             if (existing != null)
             {
+               diffuseArray.name = existing.name;
+
                EditorUtility.CopySerialized(normalSAOArray, existing);
             }
             else
@@ -2025,6 +2035,8 @@ namespace JBooth.MicroSplat
             var existing = AssetDatabase.LoadAssetAtPath<Texture2DArray> (traxDiffusePath);
             if (existing != null)
             {
+               diffuseArray.name = existing.name;
+
                EditorUtility.CopySerialized (traxDiffuseArray, existing);
             }
             else
@@ -2038,6 +2050,8 @@ namespace JBooth.MicroSplat
             var existing = AssetDatabase.LoadAssetAtPath<Texture2DArray> (traxNormalPath);
             if (existing != null)
             {
+               diffuseArray.name = existing.name;
+
                EditorUtility.CopySerialized (traxNormalSAOArray, existing);
             }
             else
@@ -2051,6 +2065,8 @@ namespace JBooth.MicroSplat
             var existing = AssetDatabase.LoadAssetAtPath<Texture2DArray>(smoothAOPath);
             if (existing != null)
             {
+               diffuseArray.name = existing.name;
+
                EditorUtility.CopySerialized(smoothAOArray, existing);
             }
             else
@@ -2064,6 +2080,8 @@ namespace JBooth.MicroSplat
             var existing = AssetDatabase.LoadAssetAtPath<Texture2DArray>(antiTilePath);
             if (existing != null)
             {
+               diffuseArray.name = existing.name;
+
                EditorUtility.CopySerialized(antiTileArray, existing);
             }
             else
@@ -2077,6 +2095,8 @@ namespace JBooth.MicroSplat
             var existing = AssetDatabase.LoadAssetAtPath<Texture2DArray>(emisPath);
             if (existing != null)
             {
+               diffuseArray.name = existing.name;
+
                EditorUtility.CopySerialized(emisArray, existing);
             }
             else
@@ -2090,6 +2110,8 @@ namespace JBooth.MicroSplat
             var existing = AssetDatabase.LoadAssetAtPath<Texture2DArray> (specularPath);
             if (existing != null)
             {
+               diffuseArray.name = existing.name;
+
                EditorUtility.CopySerialized (specularArray, existing);
             }
             else
@@ -2104,8 +2126,10 @@ namespace JBooth.MicroSplat
 
          MicroSplatUtilities.ClearPreviewCache();
          MicroSplatObject.SyncAll();
-
-         ShrinkSourceTextures(src, cfg.sourceTextureSize);
+         if (cfg.sourceTextureSize != TextureArrayConfig.SourceTextureSize.Unchanged)
+         {
+            ShrinkSourceTextures (src, cfg.sourceTextureSize);
+         }
 
       }
 

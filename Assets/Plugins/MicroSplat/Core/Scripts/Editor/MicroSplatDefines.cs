@@ -70,7 +70,9 @@ namespace JBooth.MicroSplat
       public static string link_meshterrain = "https://assetstore.unity.com/packages/tools/terrain/microsplat-mesh-terrains-157356?aid=1011l37NJ&aid=25047";
       public static string link_meshworkflow = "https://assetstore.unity.com/packages/tools/painting/microsplat-mesh-workflow-beta-120008?aid=1011l37NJ&aid=25047";
       public static string link_digger = "https://assetstore.unity.com/packages/tools/terrain/microsplat-digger-integration-162840?pubref=25047";
-      
+      public static string link_trax = "https://assetstore.unity.com/packages/tools/terrain/microsplat-trax-166218?pubref=25047";
+      public static string link_polaris = "https://assetstore.unity.com/packages/tools/terrain/microsplat-polaris-integration-166851?pubref=25047";
+
 
 
    }

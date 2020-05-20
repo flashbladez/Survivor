@@ -14,7 +14,7 @@ namespace Survivor.Core
             }
             if(currentAction != null)
             {
-                action.Cancel();
+                currentAction.Cancel();
             }
           
             currentAction = action;

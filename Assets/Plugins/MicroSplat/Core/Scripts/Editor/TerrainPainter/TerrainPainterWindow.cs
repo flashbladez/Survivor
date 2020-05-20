@@ -14,7 +14,7 @@ namespace JBooth.MicroSplat
 #if __MICROSPLAT__ && (__MICROSPLAT_STREAMS__ || __MICROSPLAT_GLOBALTEXTURE__ || __MICROSPLAT_SNOW__)
    public partial class TerrainPainterWindow : EditorWindow 
    {
-      [MenuItem("Window/MicroSplat/Terrain Painter")]
+      [MenuItem("Window/MicroSplat/Terrain FX Painter")]
       public static void ShowWindow()
       {
          var window = GetWindow<JBooth.MicroSplat.TerrainPainterWindow>();
@@ -153,7 +153,7 @@ namespace JBooth.MicroSplat
          UnityEditor.SceneManagement.EditorSceneManager.sceneSaving += OnSceneSaving;
 
 
-         this.titleContent = new GUIContent("MicroSplat Terrain Painter");
+         this.titleContent = new GUIContent("MicroSplat Terrain FX Painter");
          InitTerrains();
          Repaint();
       }

@@ -78,6 +78,10 @@
       UNITY_DECLARE_TEX2DARRAY(_NormalSAO);
       float4 _NormalSAO_TexelSize;
 
+      #if _CONTROLNOISEUV || _GLOBALNOISEUV
+         UNITY_DECLARE_TEX2D_NOSAMPLER(_NoiseUV);
+      #endif
+
       #if _PACKINGHQ
          UNITY_DECLARE_TEX2DARRAY(_SmoothAO);
          float4 _SmoothAO_TexelSize;
@@ -333,7 +337,6 @@
          UNITY_VERTEX_OUTPUT_STEREO
       };
 
-      
 
       // raw, unblended samples from arrays
       struct RawSamples
@@ -592,6 +595,30 @@
       half3 BlendMult2X(half3  base, half3 blend) { return (base * (blend * 2)); }
       half3 BlendLighterColor(half3 s, half3 d) { return (s.x + s.y + s.z > d.x + d.y + d.z) ? s : d; } 
       
+      float GetSaturation(float3 c)
+      {
+         float mi = min(min(c.x, c.y), c.z);
+         float ma = max(max(c.x, c.y), c.z);
+         return (ma - mi)/(ma + 1e-7);
+      }
+
+      // Better Color Lerp, does not have darkening issue
+      float3 BetterColorLerp(float3 a, float3 b, float x)
+      {
+         float3 ic = lerp(a, b, x) + float3(1e-6,0.0,0.0);
+         float sd = abs(GetSaturation(ic) - lerp(GetSaturation(a), GetSaturation(b), x));
+    
+         float3 dir = normalize(float3(2.0 * ic.x - ic.y - ic.z, 2.0 * ic.y - ic.x - ic.z, 2.0 * ic.z - ic.y - ic.x));
+         float lgt = dot(float3(1.0, 1.0, 1.0), ic);
+    
+         float ff = dot(dir, normalize(ic));
+    
+         const float dsp_str = 1.5;
+         ic += dsp_str * dir * sd * ff * lgt;
+         return saturate(ic);
+      }
+      
+      
       half4 ComputeWeights(half4 iWeights, half h0, half h1, half h2, half h3, half contrast)
       {
           #if _DISABLEHEIGHTBLENDING
@@ -785,10 +812,11 @@
             #if _MAX2LAYER
             weights.zw = 0;
             weights.xy *= (1.0 / (weights.x + weights.y));
-            #endif
-            #if _MAX3LAYER
+            #elif _MAX3LAYER
             weights.w = 0;
             weights.xyz *= (1.0 / (weights.x + weights.y + weights.z));
+            #elif !_DISABLEHEIGHTBLENDING || _NORMALIZEWEIGHTS // prevents black when painting, which the unity shader does not prevent.
+            weights = normalize(weights);
             #endif
 
             config.uv0 = float3(scaledUV, indexes.x);

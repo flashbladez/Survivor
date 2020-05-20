@@ -25,9 +25,6 @@ namespace JBooth.MicroSplat
             h = h * TextureArrayConfigEditor.GetTextureFormat(cfg, settings.antiTileSettings.compression).GetHashCode() * 31;
             h = h * TextureArrayConfigEditor.GetTextureFormat(cfg, settings.smoothSettings.compression).GetHashCode() * 37;
             h = h * Application.unityVersion.GetHashCode() * 43;
-            #if UNITY_EDITOR
-            h = h * UnityEditor.EditorUserBuildSettings.activeBuildTarget.GetHashCode() * 47;
-            #endif
             return h;
          }
       }

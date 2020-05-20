@@ -458,6 +458,12 @@ public partial class MicroSplatShaderGUI : ShaderGUI
 #if !__MICROSPLAT_DIGGER__
          modules.Add(new Module(MicroSplatDefines.link_digger, "microsplat_module_digger"));
 #endif
+#if !__MICROSPLAT_TRAX__
+         modules.Add(new Module(MicroSplatDefines.link_trax, "microsplat_module_trax"));
+#endif
+#if !__MICROSPLAT_POLARIS__
+         modules.Add(new Module(MicroSplatDefines.link_polaris, "microsplat_module_polaris"));
+#endif
 
          if (modules.Count > 1)
          {

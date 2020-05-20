@@ -35,5 +35,9 @@
       float4 _CustomControl0_TexelSize;
       float4 _PerPixelNormal_TexelSize;
 
+      #if _CONTROLNOISEUV || _GLOBALNOISEUV
+         float2 _NoiseUVParams;
+      #endif
+
 
 

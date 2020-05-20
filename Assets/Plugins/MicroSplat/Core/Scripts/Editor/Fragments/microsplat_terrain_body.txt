@@ -755,7 +755,7 @@
          half3 SSSTint = half3(1,1,1);
          float traxBuffer = 0;
          float3 traxNormal = 0;
-
+         float2 noiseUV = 0;
          
          
 
@@ -1110,6 +1110,15 @@
          #endif
 
          
+         #if _GLOBALNOISEUV
+            // noise defaults so that a value of 1, 1 is 4 pixels in size and moves the uvs by 1 pixel max.
+            #if _CUSTOMSPLATTEXTURES
+               noiseUV = (UNITY_SAMPLE_TEX2D_SAMPLER(_NoiseUV, _Diffuse, config.uv * _CustomControl0_TexelSize.zw * 0.2 * _NoiseUVParams.x).ga - 0.5) * _CustomControl0_TexelSize.xy * _NoiseUVParams.y;
+            #else
+               noiseUV = (UNITY_SAMPLE_TEX2D_SAMPLER(_NoiseUV, _Diffuse, config.uv * _Control0_TexelSize.zw * 0.2 * _NoiseUVParams.x).ga - 0.5) * _Control0_TexelSize.xy * _NoiseUVParams.y;
+            #endif
+         #endif
+
          
          #if _TRAXSINGLE || _TRAXARRAY || _TRAXNOTEXTURE
             ApplyTrax(samples, config, i.worldPos, traxBuffer, traxNormal);
@@ -1123,25 +1132,24 @@
          GeoTexturePerTex(samples, i.worldPos, worldHeight, config, worldNormalVertex, upVector);
          #endif
          
-
          #if _GLOBALTINT && _PERTEXGLOBALTINTSTRENGTH && !_DISABLESPLATMAPS
-         GlobalTintTexturePerTex(samples, config, camDist, globalSlopeFilter);
+         GlobalTintTexturePerTex(samples, config, camDist, globalSlopeFilter, noiseUV);
          #endif
          
          #if _GLOBALNORMALS && _PERTEXGLOBALNORMALSTRENGTH && !_DISABLESPLATMAPS
-         GlobalNormalTexturePerTex(samples, config, camDist, globalSlopeFilter);
+         GlobalNormalTexturePerTex(samples, config, camDist, globalSlopeFilter, noiseUV);
          #endif
          
          #if _GLOBALSMOOTHAOMETAL && _PERTEXGLOBALSAOMSTRENGTH && !_DISABLESPLATMAPS
-         GlobalSAOMTexturePerTex(samples, config, camDist, globalSlopeFilter);
+         GlobalSAOMTexturePerTex(samples, config, camDist, globalSlopeFilter, noiseUV);
          #endif
 
          #if _GLOBALEMIS && _PERTEXGLOBALEMISSTRENGTH && !_DISABLESPLATMAPS
-         GlobalEmisTexturePerTex(samples, config, camDist, globalSlopeFilter);
+         GlobalEmisTexturePerTex(samples, config, camDist, globalSlopeFilter, noiseUV);
          #endif
 
          #if _GLOBALSPECULAR && _PERTEXGLOBALSPECULARSTRENGTH && !_DISABLESPLATMAPS && _USESPECULARWORKFLOW
-         GlobalSpecularTexturePerTex(samples, config, camDist, globalSlopeFilter);
+         GlobalSpecularTexturePerTex(samples, config, camDist, globalSlopeFilter, noiseUV);
          #endif
 
          #if _PERTEXMETALLIC && !_DISABLESPLATMAPS
@@ -1286,7 +1294,7 @@
 
 
          #if _GLOBALTINT && !_PERTEXGLOBALTINTSTRENGTH
-         GlobalTintTexture(albedo.rgb, config, camDist, globalSlopeFilter);
+         GlobalTintTexture(albedo.rgb, config, camDist, globalSlopeFilter, noiseUV);
          #endif
 
          #if _VSGRASSMAP
@@ -1294,19 +1302,19 @@
          #endif
 
          #if _GLOBALNORMALS && !_PERTEXGLOBALNORMALSTRENGTH
-         GlobalNormalTexture(normSAO, config, camDist, globalSlopeFilter);
+         GlobalNormalTexture(normSAO, config, camDist, globalSlopeFilter, noiseUV);
          #endif
          
          #if _GLOBALSMOOTHAOMETAL && !_PERTEXGLOBALSAOMSTRENGTH
-         GlobalSAOMTexture(normSAO, emisMetal, config, camDist, globalSlopeFilter);
+         GlobalSAOMTexture(normSAO, emisMetal, config, camDist, globalSlopeFilter, noiseUV);
          #endif
          
          #if _GLOBALEMIS && !_PERTEXGLOBALEMISSTRENGTH
-         GlobalEmisTexture(emisMetal, config, camDist, globalSlopeFilter);
+         GlobalEmisTexture(emisMetal, config, camDist, globalSlopeFilter, noiseUV);
          #endif
 
          #if _GLOBALSPECULAR && !_PERTEXGLOBALSPECULARSTRENGTH && _USESPECULARWORKFLOW
-         GlobalSpecularTexture(specular.rgb, config, camDist, globalSlopeFilter);
+         GlobalSpecularTexture(specular.rgb, config, camDist, globalSlopeFilter, noiseUV);
          #endif
 
         
@@ -1390,6 +1398,11 @@
             #if !_MICROMESH
             controlUV = (controlUV * (_CustomControl0_TexelSize.zw - 1.0f) + 0.5f) * _CustomControl0_TexelSize.xy;
             #endif
+
+            #if  _CONTROLNOISEUV
+               controlUV += (UNITY_SAMPLE_TEX2D_SAMPLER(_NoiseUV, _Diffuse, controlUV * _CustomControl0_TexelSize.zw * 0.2 * _NoiseUVParams.x).ga - 0.5) * _CustomControl0_TexelSize.xy * _NoiseUVParams.y;
+            #endif
+
             w0 = UNITY_SAMPLE_TEX2D(_CustomControl0, controlUV);
             COUNTSAMPLE
 
@@ -1431,6 +1444,11 @@
             #if !_MICROMESH
             controlUV = (controlUV * (_Control0_TexelSize.zw - 1.0f) + 0.5f) * _Control0_TexelSize.xy;
             #endif
+
+            #if  _CONTROLNOISEUV
+               controlUV += (UNITY_SAMPLE_TEX2D_SAMPLER(_NoiseUV, _Diffuse, controlUV * _Control0_TexelSize.zw * 0.2 * _NoiseUVParams.x).ga - 0.5) * _Control0_TexelSize.xy * _NoiseUVParams.y;
+            #endif
+
             w0 = UNITY_SAMPLE_TEX2D(_Control0, controlUV);
             COUNTSAMPLE
 
@@ -1507,7 +1525,7 @@
          #endif
 
          #if _ORIGINSHIFT
-             worldNormalVertex = mul(_GlobalOriginMTX, float4(worldNormalVertex, 1)).xyz;
+             //worldNormalVertex = mul(_GlobalOriginMTX, float4(worldNormalVertex, 1)).xyz;
              i.worldPos = i.worldPos + mul(_GlobalOriginMTX, float4(0,0,0,1)).xyz;
          #endif
 
@@ -1631,6 +1649,7 @@
          // Further, on windows, sometimes the diffuse sampler gets stripped, so we have to do this crap.
          // We sample from the lowest mip, so it shouldn't cost much, but still, I hate this, wtf..
          l.Albedo *= saturate(UNITY_SAMPLE_TEX2DARRAY_LOD(_Diffuse, config.uv0, 11).r + 2);
+         l.Albedo *= saturate(MICROSPLAT_SAMPLE_TEX2D_SAMPLER_LOD(_Control0, _Control0, config.uv, 11).r + 2);
 
          #if _PROCEDURALTEXTURE
             ProceduralTextureDebugOutput(l, weights, config);

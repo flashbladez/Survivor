@@ -409,7 +409,7 @@ namespace JBooth.MicroSplat
             if (ai != null)
             {
                TextureImporter ti = ai as TextureImporter;
-               if (ti.sRGBTexture != false)
+               if (ti != null && ti.sRGBTexture != false)
                {
                   EditorGUILayout.BeginHorizontal();
                   EditorGUILayout.HelpBox("Texture should be linear", MessageType.Error);
