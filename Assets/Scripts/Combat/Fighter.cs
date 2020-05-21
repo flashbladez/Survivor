@@ -41,10 +41,22 @@ namespace Survivor.Combat{
             transform.LookAt(target.transform);
             if (timeSinceLastAttack > timeBetweenAttacks)
             {
-                GetComponent<Animator>().SetTrigger("attack");
+                TriggerAttack();
                 timeSinceLastAttack = 0f;
             }
 
+        }
+
+        private void TriggerAttack()
+        {
+            GetComponent<Animator>().ResetTrigger("stopAttack");
+            GetComponent<Animator>().SetTrigger("attack");
+        }
+
+        void StopAttack()
+        {
+            GetComponent<Animator>().ResetTrigger("attack");
+            GetComponent<Animator>().SetTrigger("stopAttack");
         }
 
         public bool CanAttack(CombatTarget combatTarget)
@@ -60,6 +72,10 @@ namespace Survivor.Combat{
         //animation event
         void Hit()
         {
+            if(target == null)
+            {
+                return;
+            }
             target.TakeDamage(weaponDamage);
         }
 
@@ -77,9 +93,10 @@ namespace Survivor.Combat{
 
         public void Cancel()
         {
-            GetComponent<Animator>().SetTrigger("stopAttack");
+            StopAttack();
             target = null;
         }
 
+     
     }    
 }
