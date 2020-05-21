@@ -9,7 +9,9 @@ namespace Survivor.Movement{
 
     public class Mover : MonoBehaviour,IAction
     {
+        [SerializeField] Transform target;
         NavMeshAgent navMeshAgent;
+
         void Start()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();

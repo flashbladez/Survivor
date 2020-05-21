@@ -38,6 +38,7 @@ namespace Survivor.Combat{
 
         private void AttackBehaviour()
         {
+            transform.LookAt(target.transform);
             if (timeSinceLastAttack > timeBetweenAttacks)
             {
                 GetComponent<Animator>().SetTrigger("attack");
@@ -46,10 +47,19 @@ namespace Survivor.Combat{
 
         }
 
+        public bool CanAttack(CombatTarget combatTarget)
+        {
+            if(combatTarget == null)
+            {
+                return false;
+            }
+            Health targetToTest = combatTarget.GetComponent<Health>();
+            return targetToTest != null && !targetToTest.IsDead();
+        }
+
         //animation event
         void Hit()
         {
-           // Health healthComponent = target.GetComponent<Health>();
             target.TakeDamage(weaponDamage);
         }
 
