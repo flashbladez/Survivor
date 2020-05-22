@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 8569091967419965504}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0570ccedbd133a844ad9fb17239c6688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &-830838811058967492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,4 +167,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01513cb5dd1076e499870a522b25cc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  healthPoints: 100

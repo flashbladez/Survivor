@@ -59,7 +59,7 @@ namespace Survivor.Combat{
             GetComponent<Animator>().SetTrigger("stopAttack");
         }
 
-        public bool CanAttack(CombatTarget combatTarget)
+        public bool CanAttack(GameObject combatTarget)
         {
             if(combatTarget == null)
             {
@@ -67,6 +67,13 @@ namespace Survivor.Combat{
             }
             Health targetToTest = combatTarget.GetComponent<Health>();
             return targetToTest != null && !targetToTest.IsDead();
+        }
+
+        //remove for keyboard control
+        public void Attack(GameObject combatTarget)
+        {
+            GetComponent<ActionScheduler>().StartAction(this);
+            target = combatTarget.GetComponent<Health>();
         }
 
         //animation event
@@ -82,13 +89,6 @@ namespace Survivor.Combat{
         private bool GetIsInRange()
         {
             return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
-        }
-
-        //remove for keyboard control
-        public void Attack(CombatTarget combatTarget)
-        {
-            GetComponent<ActionScheduler>().StartAction(this);
-            target = combatTarget.GetComponent<Health>();
         }
 
         public void Cancel()

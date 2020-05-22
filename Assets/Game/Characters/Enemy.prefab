@@ -1,17 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &7655397319598101681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5953706749249116567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c452f69d38313d47b6f28b659a52f95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &6907986222213419503
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26,6 +14,31 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7655397319598101681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953706749249116567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c452f69d38313d47b6f28b659a52f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4977427418428180080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953706749249116567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747d6ed699ce5cf43b6a0831147bd5a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseDistance: 5
 --- !u!1001 &6464164789594310464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36,6 +49,11 @@ PrefabInstance:
     - target: {fileID: 804599648991682263, guid: 6c2d4f64d914b81419aca9075bc77e7b,
         type: 3}
       propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 804599648991682263, guid: 6c2d4f64d914b81419aca9075bc77e7b,
+        type: 3}
+      propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 804599648991682259, guid: 6c2d4f64d914b81419aca9075bc77e7b,
