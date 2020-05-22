@@ -1,4 +1,5 @@
 ﻿using Survivor.Combat;
+using Survivor.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,15 +11,22 @@ namespace Survivor.Control
         [SerializeField] float chaseDistance = 5; // max detection range to give chase
         Fighter fighter;
         GameObject player;
+        Health health;
+
         void Start()
         {
-            fighter = GetComponent<Fighter>();
             player = GameObject.FindWithTag("Player");
+            fighter = GetComponent<Fighter>();
+            health = GetComponent<Health>();
         }
 
 
         void Update()
         {
+            if (health.IsDead())
+            {
+                return;
+            }
            // GameObject player = GameObject.FindWithTag("Player");
             if (InAttackRangeOfPlayer() && fighter.CanAttack(player))
             {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Survivor.Combat
+namespace Survivor.Core
 {
     public class Health : MonoBehaviour
     {
@@ -27,7 +27,7 @@ namespace Survivor.Combat
             }
             isDead = true;
             GetComponent<Animator>().SetTrigger("die");
-            
+            GetComponent<ActionScheduler>().CancelCurrentAction();
         }
 
         public bool IsDead()

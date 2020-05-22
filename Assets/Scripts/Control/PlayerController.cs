@@ -4,12 +4,24 @@ using UnityEngine;
 using Survivor.Movement;
 using Survivor.Combat;
 using System;
+using Survivor.Core;
 
 namespace Survivor.Control{
     public class PlayerController : MonoBehaviour
     {
+        Health health;
+
+        void Start()
+        {
+            health = GetComponent<Health>();
+        }
+
         void Update()
         {
+            if (health.IsDead())
+            {
+                return;
+            }
             if (InteractWithCombat() )
             {
                 return;
