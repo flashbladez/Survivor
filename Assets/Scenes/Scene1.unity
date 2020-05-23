@@ -351,6 +351,11 @@ PrefabInstance:
       propertyPath: healthPoints
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 5953706750786674754, guid: c6f17d5f136aab941b00d42688afd5aa,
+        type: 3}
+      propertyPath: m_Speed
+      value: 5.66
+      objectReference: {fileID: 0}
     - target: {fileID: 4977427418428180080, guid: c6f17d5f136aab941b00d42688afd5aa,
         type: 3}
       propertyPath: chaseDistance

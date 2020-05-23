@@ -53,6 +53,7 @@ namespace Survivor.Control
                
             }
             timeSiceLastSawPlayer += Time.deltaTime;
+           
         }
         void AttackBehaviour()
         {
@@ -68,9 +69,10 @@ namespace Survivor.Control
         void GuardBehaviour()
         {
             mover.StartMoveAction(guardPosition);
-            //if (transform.position == guardPosition) {
-            //    transform.rotation = guardRotation;
-           // }
+            if (transform.position.z == guardPosition.z)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, guardRotation, Time.deltaTime);
+            }
         }
      
         bool InAttackRangeOfPlayer()
