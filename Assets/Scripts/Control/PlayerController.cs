@@ -48,7 +48,7 @@ namespace Survivor.Control{
                 {
                     continue;
                 }
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButton(0))
                 {
                     GetComponent<Fighter>().Attack(target.gameObject);
                 }
@@ -65,7 +65,7 @@ namespace Survivor.Control{
             bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
             if (hasHit)
             {
-                if (Input.GetMouseButtonDown(0))//remove this for keyboard control
+                if (Input.GetMouseButton(0))//remove this for keyboard control
                 {
                     GetComponent<Mover>().StartMoveAction(hit.point);
                 }

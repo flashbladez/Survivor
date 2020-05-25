@@ -9,16 +9,24 @@ namespace Survivor.Control
 {
     public class AIController : MonoBehaviour
     {
-        [SerializeField] float chaseDistance = 5; // max detection range to give chase
+        [SerializeField] float chaseDistance = 5f; // max detection range to give chase
         [SerializeField] float suspicionTime = 5f;
+        [SerializeField] PatrolPath patrolPath;
+        [SerializeField] float waypointTolerance = 1f;
+        [SerializeField] float waypointDwellTime = 5f;
+
         Fighter fighter;
         GameObject player;
         Health health;
         Mover mover;
         Vector3 guardPosition;
         Quaternion guardRotation;
-        float timeSiceLastSawPlayer = Mathf.Infinity;
-        
+        float timeSinceLastSawPlayer = Mathf.Infinity;
+        float timeSinceArrivedAtWaypoint = Mathf.Infinity;
+        int currentWaypointIndex = 0;
+        float randomMaxDwellTime = 0;
+        float randomMinDwellTime = 0;
+
         void Start()
         {
             player = GameObject.FindWithTag("Player");
@@ -32,31 +40,32 @@ namespace Survivor.Control
 
         void Update()
         {
-            
+
             if (health.IsDead())
             {
                 return;
             }
-           // GameObject player = GameObject.FindWithTag("Player");
+            // GameObject player = GameObject.FindWithTag("Player");
             if (InAttackRangeOfPlayer() && fighter.CanAttack(player))
             {
-                timeSiceLastSawPlayer = 0;
                 AttackBehaviour();
             }
-            else if (timeSiceLastSawPlayer <= suspicionTime)
+            else if (timeSinceLastSawPlayer <= suspicionTime)
             {
                 SuspicionBehaviour();
             }
             else
             {
-                GuardBehaviour();
-               
+                PatrolBehaviour();
+
             }
-            timeSiceLastSawPlayer += Time.deltaTime;
-           
+            UpdateTimers();
+
         }
+
         void AttackBehaviour()
         {
+            timeSinceLastSawPlayer = 0;
             fighter.Attack(player);
         }
 
@@ -66,19 +75,57 @@ namespace Survivor.Control
             GetComponent<ActionScheduler>().CancelCurrentAction();//fighter.cancel() works too
         }
 
-        void GuardBehaviour()
+        void PatrolBehaviour()
         {
-            mover.StartMoveAction(guardPosition);
+            Vector3 nextPosition = guardPosition;
+            if (patrolPath != null)
+            {
+                if (AtWaypoint())
+                {
+                    timeSinceArrivedAtWaypoint = 0;
+                    CycleWaypoint();
+                }
+                nextPosition = GetCurrentWaypoint();
+            }
+            
+            if (timeSinceArrivedAtWaypoint > randomMaxDwellTime)
+            {
+                 mover.StartMoveAction(nextPosition);
+            }
+           
             if (transform.position.z == guardPosition.z)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, guardRotation, Time.deltaTime);
             }
         }
-     
+    
+        bool AtWaypoint()
+        {
+            float distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWaypoint());
+            return distanceToWaypoint < waypointTolerance;
+        }
+
+        void CycleWaypoint()
+        {
+            randomMaxDwellTime = Random.Range(randomMinDwellTime, waypointDwellTime);
+            currentWaypointIndex = patrolPath.GetNextIndex(currentWaypointIndex);
+        }
+
+        Vector3 GetCurrentWaypoint()
+        {
+            return patrolPath.GetWaypoint(currentWaypointIndex);
+        }
+
         bool InAttackRangeOfPlayer()
         {
             float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
             return distanceToPlayer < chaseDistance;
+        }
+
+        void UpdateTimers()
+        {
+            timeSinceLastSawPlayer += Time.deltaTime;
+            timeSinceArrivedAtWaypoint += Time.deltaTime;
         }
 
         void OnDrawGizmosSelected()
@@ -86,5 +133,7 @@ namespace Survivor.Control
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, chaseDistance);
         }
+
+
     }
 }

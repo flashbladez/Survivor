@@ -397,6 +397,11 @@ PrefabInstance:
       propertyPath: chaseDistance
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4977427418428180080, guid: c6f17d5f136aab941b00d42688afd5aa,
+        type: 3}
+      propertyPath: patrolPath
+      value: 
+      objectReference: {fileID: 111272247}
     - target: {fileID: 3413398796814722816, guid: c6f17d5f136aab941b00d42688afd5aa,
         type: 3}
       propertyPath: healthPoints
