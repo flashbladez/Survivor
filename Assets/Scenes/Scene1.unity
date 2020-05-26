@@ -193,6 +193,16 @@ PrefabInstance:
       propertyPath: chaseDistance
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4977427418428180080, guid: c6f17d5f136aab941b00d42688afd5aa,
+        type: 3}
+      propertyPath: patrolSpeedFraction
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5953706750786674754, guid: c6f17d5f136aab941b00d42688afd5aa,
+        type: 3}
+      propertyPath: m_Speed
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6f17d5f136aab941b00d42688afd5aa, type: 3}
 --- !u!1 &111272246
@@ -402,6 +412,11 @@ PrefabInstance:
       propertyPath: patrolPath
       value: 
       objectReference: {fileID: 111272247}
+    - target: {fileID: 4977427418428180080, guid: c6f17d5f136aab941b00d42688afd5aa,
+        type: 3}
+      propertyPath: patrolSpeedFraction
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 3413398796814722816, guid: c6f17d5f136aab941b00d42688afd5aa,
         type: 3}
       propertyPath: healthPoints
@@ -410,7 +425,7 @@ PrefabInstance:
     - target: {fileID: 5953706750786674754, guid: c6f17d5f136aab941b00d42688afd5aa,
         type: 3}
       propertyPath: m_Speed
-      value: 5.66
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6f17d5f136aab941b00d42688afd5aa, type: 3}
@@ -1184,6 +1199,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Speed
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7670631178059118144, guid: dced2408c97de034f83864d86cf36be5,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dced2408c97de034f83864d86cf36be5, type: 3}

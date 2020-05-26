@@ -67,7 +67,7 @@ namespace Survivor.Control{
             {
                 if (Input.GetMouseButton(0))//remove this for keyboard control
                 {
-                    GetComponent<Mover>().StartMoveAction(hit.point);
+                    GetComponent<Mover>().StartMoveAction(hit.point,1f);
                 }
                 return true;
             }

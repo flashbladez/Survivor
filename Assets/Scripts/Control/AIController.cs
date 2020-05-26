@@ -11,9 +11,11 @@ namespace Survivor.Control
     {
         [SerializeField] float chaseDistance = 5f; // max detection range to give chase
         [SerializeField] float suspicionTime = 5f;
-        [SerializeField] PatrolPath patrolPath;
         [SerializeField] float waypointTolerance = 1f;
         [SerializeField] float waypointDwellTime = 5f;
+        [Range(0,1)]
+        [SerializeField] float patrolSpeedFraction = 0.2f;
+        [SerializeField] PatrolPath patrolPath;
 
         Fighter fighter;
         GameObject player;
@@ -90,7 +92,7 @@ namespace Survivor.Control
             
             if (timeSinceArrivedAtWaypoint > randomMaxDwellTime)
             {
-                 mover.StartMoveAction(nextPosition);
+                 mover.StartMoveAction(nextPosition,patrolSpeedFraction);
             }
            
             if (transform.position.z == guardPosition.z)

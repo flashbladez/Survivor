@@ -10,6 +10,8 @@ namespace Survivor.Movement{
     public class Mover : MonoBehaviour,IAction
     {
         [SerializeField] Transform target;
+        [SerializeField] float maxSpeed = 6f;
+            
         NavMeshAgent navMeshAgent;
         Health health;
 
@@ -25,24 +27,22 @@ namespace Survivor.Movement{
             UpdateAnimator();
         }
 
-        public void StartMoveAction(Vector3 destination)
+        public void StartMoveAction(Vector3 destination, float speedFraction)
         {
             GetComponent<ActionScheduler>().StartAction(this);
           
-            MoveTo(destination); //remove for keyboard control
+            MoveTo(destination,speedFraction); //remove for keyboard control
         }
 
-        public void MoveTo(Vector3 destination)
+        public void MoveTo(Vector3 destination,float speedFraction)
         {
-            //remove for keyboard control
-
-            navMeshAgent.destination = destination;//remove for keyboard control
+            navMeshAgent.destination = destination;
+            navMeshAgent.speed = maxSpeed * Mathf.Clamp01(speedFraction);
             navMeshAgent.isStopped = false;
         }
 
         public void Cancel()
         {
-            //remove for keyboard control
             navMeshAgent.isStopped = true;
         }
 
