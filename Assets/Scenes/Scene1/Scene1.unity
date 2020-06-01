@@ -835,6 +835,7 @@ GameObject:
   - component: {fileID: 1361781597}
   - component: {fileID: 1361781596}
   - component: {fileID: 1361781595}
+  - component: {fileID: 1361781598}
   m_Layer: 5
   m_Name: Fader
   m_TagString: Untagged
@@ -966,10 +967,22 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361781590}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1361781598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361781590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8acec8b5b821ba418b5c69c722ab692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1374698416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,7 +1285,7 @@ PrefabInstance:
     - target: {fileID: 7670631176521191318, guid: dced2408c97de034f83864d86cf36be5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1591.4082
+      value: -1602.51
       objectReference: {fileID: 0}
     - target: {fileID: 7670631176521191318, guid: dced2408c97de034f83864d86cf36be5,
         type: 3}
@@ -1282,7 +1295,7 @@ PrefabInstance:
     - target: {fileID: 7670631176521191318, guid: dced2408c97de034f83864d86cf36be5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -234.33026
+      value: -222.26
       objectReference: {fileID: 0}
     - target: {fileID: 7670631176521191318, guid: dced2408c97de034f83864d86cf36be5,
         type: 3}
