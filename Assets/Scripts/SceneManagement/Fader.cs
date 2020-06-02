@@ -12,13 +12,6 @@ namespace Survivor.SceneManagement
         {
             canvasGroup = GetComponent<CanvasGroup>();
             canvasGroup.alpha = 0;
-            StartCoroutine(FadeOutIn());
-        }
-
-        IEnumerator FadeOutIn()
-        {
-            yield return FadeOut(3f);
-            yield return FadeIn(3f);
         }
 
         public IEnumerator FadeOut(float time)
