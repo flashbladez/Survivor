@@ -269,6 +269,11 @@ PrefabInstance:
       propertyPath: m_Speed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4756516339071295583, guid: c6f17d5f136aab941b00d42688afd5aa,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: c3bccc8d-c90b-413b-9821-c77019cf9edd
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6f17d5f136aab941b00d42688afd5aa, type: 3}
 --- !u!4 &107458320 stripped
@@ -498,6 +503,11 @@ PrefabInstance:
         type: 3}
       propertyPath: healthPoints
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756516339071295583, guid: c6f17d5f136aab941b00d42688afd5aa,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: 726e1842-df62-4d1e-b8f2-b726d438c0b9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6f17d5f136aab941b00d42688afd5aa, type: 3}
@@ -1088,6 +1098,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -193.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2867972908434628181, guid: 539f85b2f8a9e2444947322a321c9af0,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: d9f841cd-7869-45ff-9609-291d4f1b00cd
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 539f85b2f8a9e2444947322a321c9af0, type: 3}
