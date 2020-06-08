@@ -8,7 +8,17 @@ namespace Survivor.SceneManagement
 {
     public class SavingWrapper : MonoBehaviour
     {
+        [SerializeField] float fadeInTime = 2f;
         const string defaultSaveFile = "SavedFile";
+
+        IEnumerator Start()
+        {
+            Fader fader = FindObjectOfType<Fader>();
+            fader.FadeOutImmediate();
+            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
+            yield return fader.FadeIn(fadeInTime);
+        }
+
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.L))
@@ -22,13 +32,13 @@ namespace Survivor.SceneManagement
             }
         }
 
-        void Load()
+        public void Load()
         {
             //call to savingsystem load
             GetComponent<SavingSystem>().Load(defaultSaveFile);
         }
 
-        void Save()
+        public void Save()
         {
             GetComponent<SavingSystem>().Save(defaultSaveFile);
         }              
