@@ -8,9 +8,9 @@ using System;
 namespace Survivor.Combat{
     public class Fighter : MonoBehaviour, IAction
     {
-        [SerializeField] float weaponRange = 2f;
+       
         [SerializeField] float timeBetweenAttacks = 2f;
-        [SerializeField] float weaponDamage = 5f;
+      
         [SerializeField] Weapon weapon = null;
         [SerializeField] Transform handTransform = null;
        
@@ -101,12 +101,12 @@ namespace Survivor.Combat{
             {
                 return;
             }
-            target.TakeDamage(weaponDamage);
+            target.TakeDamage(weapon.GetDamage());
         }
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
+            return Vector3.Distance(transform.position, target.transform.position) < weapon.GetRange();
         }
 
         public void Cancel()
