@@ -77,7 +77,6 @@ namespace Survivor.Saving
                 globalLookup.Remove(candidate);
                 return true;
             }
-
             return false;
         }
     }

@@ -274,6 +274,11 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: c3bccc8d-c90b-413b-9821-c77019cf9edd
       objectReference: {fileID: 0}
+    - target: {fileID: 3300319530225740668, guid: c6f17d5f136aab941b00d42688afd5aa,
+        type: 3}
+      propertyPath: weaponPrefab
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6f17d5f136aab941b00d42688afd5aa, type: 3}
 --- !u!4 &107458320 stripped
@@ -509,6 +514,11 @@ PrefabInstance:
       propertyPath: healthPoints
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 3300319530225740668, guid: c6f17d5f136aab941b00d42688afd5aa,
+        type: 3}
+      propertyPath: weaponPrefab
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6f17d5f136aab941b00d42688afd5aa, type: 3}
 --- !u!4 &286105353 stripped
@@ -516,6 +526,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5953706749249116563, guid: c6f17d5f136aab941b00d42688afd5aa,
     type: 3}
   m_PrefabInstance: {fileID: 286105352}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &438480421 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1439113970329951037, guid: 539f85b2f8a9e2444947322a321c9af0,
+    type: 3}
+  m_PrefabInstance: {fileID: 6711421821172209243}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &548544308
 GameObject:
@@ -1099,6 +1115,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -193.09
       objectReference: {fileID: 0}
+    - target: {fileID: 5188862977909757302, guid: 539f85b2f8a9e2444947322a321c9af0,
+        type: 3}
+      propertyPath: weaponPrefab
+      value: 
+      objectReference: {fileID: 5962453781274581259, guid: 2b49c21eff176eb458dfbfd6d2b626f4,
+        type: 3}
+    - target: {fileID: 5188862977909757302, guid: 539f85b2f8a9e2444947322a321c9af0,
+        type: 3}
+      propertyPath: handTransform
+      value: 
+      objectReference: {fileID: 438480421}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 539f85b2f8a9e2444947322a321c9af0, type: 3}
 --- !u!1 &6711421821172209244 stripped

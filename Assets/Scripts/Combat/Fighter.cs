@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Survivor.Movement;
 using Survivor.Core;
+using System;
 
 namespace Survivor.Combat{
     public class Fighter : MonoBehaviour, IAction
@@ -10,10 +11,18 @@ namespace Survivor.Combat{
         [SerializeField] float weaponRange = 2f;
         [SerializeField] float timeBetweenAttacks = 2f;
         [SerializeField] float weaponDamage = 5f;
+        [SerializeField] Weapon weapon = null;
+        [SerializeField] Transform handTransform = null;
+       
         Health target;
         float timeSinceLastAttack = Mathf.Infinity;
 
-        private void Update()
+        void Start()
+        {
+            SpawnWeapon();
+        }
+
+        void Update()
         {
             timeSinceLastAttack += Time.deltaTime;
             //remove for keyboard control
@@ -36,6 +45,16 @@ namespace Survivor.Combat{
             }
         }
 
+        void SpawnWeapon()
+        {
+            if(weapon == null)
+            {
+                return;
+            }
+            Animator animator = GetComponent<Animator>();
+            weapon.Spawn(handTransform,animator);
+        }
+
         private void AttackBehaviour()
         {
             transform.LookAt(target.transform);
@@ -44,7 +63,6 @@ namespace Survivor.Combat{
                 TriggerAttack();
                 timeSinceLastAttack = 0f;
             }
-
         }
 
         private void TriggerAttack()
