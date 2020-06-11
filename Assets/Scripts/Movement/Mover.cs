@@ -75,7 +75,7 @@ namespace Survivor.Movement{
         public void RestoreState(object state)
         {
             MoverSaveData data = (MoverSaveData)state;
-            SerializableVector3 position = (SerializableVector3)state;
+            //SerializableVector3 position = (SerializableVector3)state;
             GetComponent<NavMeshAgent>().enabled = false;
             transform.position = data.position.ToVector();
             transform.eulerAngles = data.rotation.ToVector();

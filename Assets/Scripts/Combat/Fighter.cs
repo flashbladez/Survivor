@@ -11,15 +11,16 @@ namespace Survivor.Combat{
        
         [SerializeField] float timeBetweenAttacks = 2f;
       
-        [SerializeField] Weapon weapon = null;
+        [SerializeField] Weapon defaultWeapon = null;
         [SerializeField] Transform handTransform = null;
        
         Health target;
         float timeSinceLastAttack = Mathf.Infinity;
+        Weapon currentWeapon = null;
 
         void Start()
         {
-            SpawnWeapon();
+            EquipWeapon(defaultWeapon);
         }
 
         void Update()
@@ -45,7 +46,7 @@ namespace Survivor.Combat{
             }
         }
 
-        void SpawnWeapon()
+        public void EquipWeapon(Weapon weapon)
         {
             if(weapon == null)
             {
@@ -53,9 +54,10 @@ namespace Survivor.Combat{
             }
             Animator animator = GetComponent<Animator>();
             weapon.Spawn(handTransform,animator);
+            currentWeapon = weapon;
         }
 
-        private void AttackBehaviour()
+        void AttackBehaviour()
         {
             transform.LookAt(target.transform);
             if (timeSinceLastAttack > timeBetweenAttacks)
@@ -65,7 +67,7 @@ namespace Survivor.Combat{
             }
         }
 
-        private void TriggerAttack()
+        void TriggerAttack()
         {
             GetComponent<Animator>().ResetTrigger("stopAttack");
             GetComponent<Animator>().SetTrigger("attack");
@@ -101,12 +103,12 @@ namespace Survivor.Combat{
             {
                 return;
             }
-            target.TakeDamage(weapon.GetDamage());
+            target.TakeDamage(currentWeapon.GetDamage());
         }
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, target.transform.position) < weapon.GetRange();
+            return Vector3.Distance(transform.position, target.transform.position) < currentWeapon.GetRange();
         }
 
         public void Cancel()
