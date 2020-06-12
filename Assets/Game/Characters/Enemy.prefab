@@ -14,18 +14,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &7655397319598101681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5953706749249116567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c452f69d38313d47b6f28b659a52f95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4977427418428180080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,6 +27,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseDistance: 5
+  suspicionTime: 5
+  waypointTolerance: 1
+  waypointDwellTime: 5
+  patrolSpeedFraction: 0.2
+  patrolPath: {fileID: 0}
+--- !u!114 &7655397319598101681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953706749249116567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c452f69d38313d47b6f28b659a52f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6464164789594310464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -111,6 +116,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -830838811058967492, guid: 6c2d4f64d914b81419aca9075bc77e7b,
+        type: 3}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 399569e872d0cef43a4d7dc2725359f1,
+        type: 2}
+    - target: {fileID: -830838811058967492, guid: 6c2d4f64d914b81419aca9075bc77e7b,
+        type: 3}
+      propertyPath: leftHandTransform
+      value: 
+      objectReference: {fileID: 7473155527599609507}
+    - target: {fileID: -830838811058967492, guid: 6c2d4f64d914b81419aca9075bc77e7b,
+        type: 3}
+      propertyPath: rightHandTransform
+      value: 
+      objectReference: {fileID: 7473155527599683233}
     - target: {fileID: 8569091967419965504, guid: 6c2d4f64d914b81419aca9075bc77e7b,
         type: 3}
       propertyPath: health
@@ -188,3 +209,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30cf93deff988e74e88a144bd2127c18, type: 3}
+--- !u!4 &7473155527599609507 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 481036, guid: 30cf93deff988e74e88a144bd2127c18,
+    type: 3}
+  m_PrefabInstance: {fileID: 7473155527599784367}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7473155527599683233 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 423694, guid: 30cf93deff988e74e88a144bd2127c18,
+    type: 3}
+  m_PrefabInstance: {fileID: 7473155527599784367}
+  m_PrefabAsset: {fileID: 0}

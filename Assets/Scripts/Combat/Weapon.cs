@@ -12,12 +12,26 @@ namespace Survivor.Combat
         [SerializeField] float weaponRange = 2f;
         [SerializeField] float weaponDamage = 5f;
 
-        public void Spawn(Transform handTransform, Animator animator)
+        [SerializeField] bool isRightHanded = true;
+
+        public void Spawn(Transform rightHand,Transform leftHand, Animator animator)
         {
+            Transform handTransform;
+            if (isRightHanded)
+            {
+                handTransform = rightHand;
+            }
+            else
+            {
+                handTransform = leftHand;
+            }
+
             if (equippedPrefab != null)
             {
                 Instantiate(equippedPrefab, handTransform);
             }
+           
+
             if(animatorOverride != null)
             {
                 animator.runtimeAnimatorController = animatorOverride;

@@ -12,8 +12,9 @@ namespace Survivor.Combat{
         [SerializeField] float timeBetweenAttacks = 2f;
       
         [SerializeField] Weapon defaultWeapon = null;
-        [SerializeField] Transform handTransform = null;
-       
+        [SerializeField] Transform rightHandTransform = null;
+        [SerializeField] Transform leftHandTransform = null;
+
         Health target;
         float timeSinceLastAttack = Mathf.Infinity;
         Weapon currentWeapon = null;
@@ -53,7 +54,7 @@ namespace Survivor.Combat{
                 return;
             }
             Animator animator = GetComponent<Animator>();
-            weapon.Spawn(handTransform,animator);
+            weapon.Spawn(rightHandTransform, leftHandTransform, animator);
             currentWeapon = weapon;
         }
 
