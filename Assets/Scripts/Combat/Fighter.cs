@@ -104,10 +104,23 @@ namespace Survivor.Combat{
             {
                 return;
             }
-            target.TakeDamage(currentWeapon.GetDamage());
+            if (currentWeapon.HasProjectile())
+            {
+                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target);
+            }
+            else
+            {
+                target.TakeDamage(currentWeapon.GetDamage());
+            }
+          
         }
 
-        private bool GetIsInRange()
+        void Shoot()
+        {
+            Hit();
+        }
+
+        bool GetIsInRange()
         {
             return Vector3.Distance(transform.position, target.transform.position) < currentWeapon.GetRange();
         }
