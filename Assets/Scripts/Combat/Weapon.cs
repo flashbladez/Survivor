@@ -1,4 +1,5 @@
 ﻿using Survivor.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,13 +16,18 @@ namespace Survivor.Combat
         [SerializeField] Projectile projectile = null;
         [SerializeField] bool isRightHanded = true;
 
+        const string weaponName = "Weapon";
+
         public void Spawn(Transform rightHand,Transform leftHand, Animator animator)
         {
-            Transform handTransform = GetTransform(rightHand, leftHand);
+            DestroyOldWeapon(rightHand, leftHand);
+          
 
             if (equippedPrefab != null)
             {
-                Instantiate(equippedPrefab, handTransform);
+                Transform handTransform = GetTransform(rightHand, leftHand);
+                GameObject weapon = Instantiate(equippedPrefab, handTransform);
+                weapon.name = weaponName;
             }
 
 
@@ -29,6 +35,21 @@ namespace Survivor.Combat
             {
                 animator.runtimeAnimatorController = animatorOverride;
             }
+        }
+
+        void DestroyOldWeapon(Transform rightHand, Transform leftHand)
+        {
+            Transform oldWeapon = rightHand.Find(weaponName);
+            if(oldWeapon == null)
+            {
+                oldWeapon = leftHand.Find(weaponName);
+            }
+            if(oldWeapon == null)
+            {
+                return;
+            }
+            oldWeapon.name = "Destroyed Weapon";
+            Destroy(oldWeapon.gameObject);
         }
 
         public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target)
