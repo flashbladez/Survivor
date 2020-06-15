@@ -9,13 +9,14 @@ namespace Survivor.Combat
     public class Projectile : MonoBehaviour
     {
         [SerializeField] float speed = 1;
+        [SerializeField] bool isHoming = true;
 
         Health target = null;
         float damage = 0;
 
         void Start()
         {
-
+            transform.LookAt(GetAimLocation());
         }
 
         void Update()
@@ -24,7 +25,10 @@ namespace Survivor.Combat
             {
                 return;
             }
-            transform.LookAt(GetAimLocation());
+            if (isHoming && !target.IsDead())
+            {
+                transform.LookAt(GetAimLocation());
+            }
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
 
@@ -47,6 +51,10 @@ namespace Survivor.Combat
         void OnTriggerEnter(Collider other)
         {
             if(other.GetComponent<Health>() != target)
+            {
+                return;
+            }
+            if (target.IsDead())
             {
                 return;
             }

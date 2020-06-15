@@ -20,8 +20,7 @@ namespace Survivor.Combat
 
         public void Spawn(Transform rightHand,Transform leftHand, Animator animator)
         {
-            DestroyOldWeapon(rightHand, leftHand);
-          
+            DestroyOldWeapon(rightHand, leftHand);     
 
             if (equippedPrefab != null)
             {
@@ -29,7 +28,6 @@ namespace Survivor.Combat
                 GameObject weapon = Instantiate(equippedPrefab, handTransform);
                 weapon.name = weaponName;
             }
-
 
             if (animatorOverride != null)
             {
@@ -48,7 +46,7 @@ namespace Survivor.Combat
             {
                 return;
             }
-            oldWeapon.name = "Destroyed Weapon";
+            oldWeapon.name = "Old Weapon";
             Destroy(oldWeapon.gameObject);
         }
 
