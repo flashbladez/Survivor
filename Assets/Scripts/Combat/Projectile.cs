@@ -10,6 +10,10 @@ namespace Survivor.Combat
     {
         [SerializeField] float speed = 1;
         [SerializeField] bool isHoming = true;
+        [SerializeField] GameObject hitEffect = null;
+        [SerializeField] float maxLifetime = 5f;
+        [SerializeField] GameObject[] destroyOnHit = null;
+        [SerializeField] float lifeAfterImpact = 2f;
 
         Health target = null;
         float damage = 0;
@@ -36,6 +40,8 @@ namespace Survivor.Combat
         {
             this.target = target;
             this.damage = damage;
+
+            Destroy(gameObject, maxLifetime);
         }
 
         Vector3 GetAimLocation()
@@ -59,7 +65,18 @@ namespace Survivor.Combat
                 return;
             }
             target.TakeDamage(damage);
-            Destroy(gameObject);
+
+            speed = 0;
+            if(hitEffect != null)
+            {
+                Instantiate(hitEffect, GetAimLocation(), transform.rotation);
+            }
+
+            foreach(GameObject toDestroy in destroyOnHit)
+            {
+                Destroy(toDestroy);
+            }
+            Destroy(gameObject, lifeAfterImpact);
         }
     }
 }
