@@ -16,3 +16,5 @@ MonoBehaviour:
   animatorOverride: {fileID: 0}
   weaponRange: 2
   weaponDamage: 3
+  projectile: {fileID: 0}
+  isRightHanded: 1

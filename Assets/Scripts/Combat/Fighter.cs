@@ -4,24 +4,27 @@ using UnityEngine;
 using Survivor.Movement;
 using Survivor.Core;
 using System;
+using Survivor.Saving;
 
 namespace Survivor.Combat{
-    public class Fighter : MonoBehaviour, IAction
+    public class Fighter : MonoBehaviour, IAction,ISaveable
     {
        
         [SerializeField] float timeBetweenAttacks = 2f;
-      
         [SerializeField] Weapon defaultWeapon = null;
         [SerializeField] Transform rightHandTransform = null;
         [SerializeField] Transform leftHandTransform = null;
-
+       
         Health target;
         float timeSinceLastAttack = Mathf.Infinity;
         Weapon currentWeapon = null;
 
         void Start()
         {
-            EquipWeapon(defaultWeapon);
+            if (currentWeapon == null)
+            {
+                EquipWeapon(defaultWeapon);
+            }
         }
 
         void Update()
@@ -131,7 +134,16 @@ namespace Survivor.Combat{
             target = null;
         }
 
+        public object CaptureState()
+        {
+            return currentWeapon.name;
+        }
 
-     
+        public void RestoreState(object state)
+        {
+            string weaponName = (string)state;
+            Weapon weapon = Resources.Load<Weapon>(weaponName);
+            EquipWeapon(weapon);
+        }
     }    
 }
