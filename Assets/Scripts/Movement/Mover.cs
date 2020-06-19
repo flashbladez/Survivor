@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Survivor.Saving;
+using Survivor.Resources;
 
 namespace Survivor.Movement{
 

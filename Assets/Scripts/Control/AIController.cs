@@ -1,9 +1,10 @@
 ﻿using Survivor.Combat;
-using Survivor.Core;
 using Survivor.Movement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Survivor.Resources;
+using Survivor.Core;
 
 namespace Survivor.Control
 {

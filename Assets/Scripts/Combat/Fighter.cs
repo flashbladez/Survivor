@@ -5,6 +5,7 @@ using Survivor.Movement;
 using Survivor.Core;
 using System;
 using Survivor.Saving;
+using Survivor.Resources;
 
 namespace Survivor.Combat{
     public class Fighter : MonoBehaviour, IAction,ISaveable
@@ -142,7 +143,7 @@ namespace Survivor.Combat{
         public void RestoreState(object state)
         {
             string weaponName = (string)state;
-            Weapon weapon = Resources.Load<Weapon>(weaponName);
+            Weapon weapon = UnityEngine.Resources.Load<Weapon>(weaponName);
             EquipWeapon(weapon);
         }
     }    

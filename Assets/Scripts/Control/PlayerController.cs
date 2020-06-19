@@ -4,7 +4,7 @@ using UnityEngine;
 using Survivor.Movement;
 using Survivor.Combat;
 using System;
-using Survivor.Core;
+using Survivor.Resources;
 
 namespace Survivor.Control{
     public class PlayerController : MonoBehaviour
