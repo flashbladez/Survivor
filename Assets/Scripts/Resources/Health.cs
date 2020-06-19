@@ -18,6 +18,11 @@ namespace Survivor.Resources
             healthPoints = GetComponent<BaseStats>().GetHealth();
         }
 
+        public float GetPercentage()
+        {
+            return 100 * (healthPoints / GetComponent<BaseStats>().GetHealth());
+        }
+
         public void TakeDamage(float damage)
         {
             healthPoints = Mathf.Max(healthPoints - damage, 0);

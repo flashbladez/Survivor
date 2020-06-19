@@ -62,6 +62,11 @@ namespace Survivor.Combat{
             currentWeapon = weapon;
         }
 
+        public Health GetTarget()
+        {
+            return target;
+        }
+
         void AttackBehaviour()
         {
             transform.LookAt(target.transform);
