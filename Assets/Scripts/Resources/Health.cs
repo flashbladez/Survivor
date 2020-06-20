@@ -4,6 +4,7 @@ using UnityEngine;
 using Survivor.Saving;
 using Survivor.Stats;
 using Survivor.Core;
+using System;
 
 namespace Survivor.Resources
 {
@@ -15,24 +16,35 @@ namespace Survivor.Resources
 
         void Start()
         {
-            healthPoints = GetComponent<BaseStats>().GetHealth();
+            healthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
         public float GetPercentage()
         {
-            return 100 * (healthPoints / GetComponent<BaseStats>().GetHealth());
+            return 100 * (healthPoints / GetComponent<BaseStats>().GetStat(Stat.Health));
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(GameObject instigator, float damage)
         {
             healthPoints = Mathf.Max(healthPoints - damage, 0);
             if(healthPoints == 0)
             {
                 Die();
+                AwardExperience(instigator);
             }
         }
 
-        private void Die()
+        void AwardExperience(GameObject instigator)
+        {
+            Experience experience = instigator.GetComponent<Experience>();
+            if(experience == null)
+            {
+                return;
+            }
+            experience.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
+        }
+
+        void Die()
         {
             if (isDead)
             {

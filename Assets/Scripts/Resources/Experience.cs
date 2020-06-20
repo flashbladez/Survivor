@@ -1,0 +1,37 @@
+﻿using Survivor.Saving;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Survivor.Resources
+{
+    public class Experience : MonoBehaviour
+    {
+        [SerializeField] float experiencePoints = 0f;
+
+       // public delegate void ExperienceGainedDelegate();
+     //   public event Action onExperienceGained;
+
+        public void GainExperience(float experience)
+        {
+            experiencePoints += experience;
+         //   onExperienceGained();
+        }
+
+     //   public float GetPoints()
+      //  {
+     //       return experiencePoints;
+     //   }
+
+    //    public object CaptureState()
+    //    {
+     //       return experiencePoints;
+     //   }
+
+     //   public void RestoreState(object state)
+   //     {
+     //       experiencePoints = (float)state;
+    //    }
+    }
+}

@@ -12,6 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 106cd3bb43eb88046a1d63cfc287e573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2203639062434414425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7670631176521191314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a09f10ceeefe12842a0b51399bc7bd20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experiencePoints: 0
 --- !u!1001 &5682135483783215798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -151,6 +164,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4937671492262925134, guid: 6c2d4f64d914b81419aca9075bc77e7b,
+        type: 3}
+      propertyPath: characterClass
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -830838811058967492, guid: 6c2d4f64d914b81419aca9075bc77e7b,
         type: 3}
       propertyPath: handTransform
@@ -178,11 +196,6 @@ PrefabInstance:
         type: 3}
       propertyPath: uniqueIdentifier
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4937671492262925134, guid: 6c2d4f64d914b81419aca9075bc77e7b,
-        type: 3}
-      propertyPath: characterClass
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c2d4f64d914b81419aca9075bc77e7b, type: 3}
