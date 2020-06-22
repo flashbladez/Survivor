@@ -19,10 +19,10 @@ namespace Survivor.Resources
          //   onExperienceGained();
         }
 
-     //   public float GetPoints()
-      //  {
-     //       return experiencePoints;
-     //   }
+        public float GetPoints()
+        {
+            return experiencePoints;
+        }
 
         public object CaptureState()
         {
