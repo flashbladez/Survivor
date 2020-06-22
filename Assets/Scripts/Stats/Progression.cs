@@ -10,29 +10,49 @@ namespace Survivor.Stats
     {
         [SerializeField] ProgressionCharacterClass[] characterClasses = null;
 
+        Dictionary<CharacterClass, Dictionary<Stat, float[]>> lookupTable = null;
+
         public float GetStat(Stat stat, CharacterClass characterClass, int level)
         {
-            foreach(ProgressionCharacterClass progressionClass in characterClasses)
+            BuildLookup();
+          
+            float[] levels = lookupTable[characterClass][stat];
+
+            if(levels.Length < level)
             {
-                if(progressionClass.characterClass != characterClass)
+                return 0;
+            }
+            return levels[level - 1];
+        }
+
+        public int GetLevels(Stat stat, CharacterClass characterClass)
+        {
+            BuildLookup();
+
+            float[] levels = lookupTable[characterClass][stat];
+            return levels.Length;
+        }
+
+        void BuildLookup()
+        {
+            if(lookupTable != null)
+            {
+                return;
+            }
+
+            lookupTable = new Dictionary<CharacterClass, Dictionary<Stat, float[]>>();
+           
+            foreach (ProgressionCharacterClass progressionClass in characterClasses)
+            {
+                var statLookupTable = new Dictionary<Stat, float[]>();
+
+                foreach (ProgressionStat progressionStat in progressionClass.stats)
                 {
-                    continue;               
+                    statLookupTable[progressionStat.stat] = progressionStat.levels;
                 }
 
-                foreach(ProgressionStat progressionStat in progressionClass.stats)
-                {
-                    if(progressionStat.stat != stat)
-                    {
-                        continue;
-                    }
-                    if(progressionStat.levels.Length < level)
-                    {
-                        continue;
-                    }
-                    return progressionStat.levels[level - 1];
-                }
+                lookupTable[progressionClass.characterClass] = statLookupTable;
             }
-            return 0;
         }
 
         [System.Serializable]

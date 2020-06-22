@@ -15,19 +15,48 @@ namespace Survivor.Stats
 
         int currentLevel = 0;
 
-     //   void Start()
-      //  {
-      //      currentLevel = CalculateLevel();
-      //      Experience experience = GetComponent<Experience>();
+        //   void Start()
+        //  {
+        //      currentLevel = CalculateLevel();
+        //      Experience experience = GetComponent<Experience>();
         //    if(experience != null)
         //    {
         //        experience.onExperienceGained += UpdateLevel;
         //    }
-       // }
+        // }
+        void Update()
+        {
+            if(gameObject.tag == "Player")
+            {
+                print(Getlevel());
+            }
+        }
+
 
         public float GetStat(Stat stat)
         {
-            return progression.GetStat(stat, characterClass, startingLevel);
+            return progression.GetStat(stat, characterClass, Getlevel());
+        }
+
+        public int Getlevel()
+        {
+            Experience experience = GetComponent<Experience>();
+
+            if(experience == null)
+            {
+                return startingLevel;
+            }
+            float currentXP = experience.GetPoints();
+            int penultimateLevel = progression.GetLevels(Stat.ExperienceToLevelUp, characterClass);
+            for (int level = 1; level <= penultimateLevel; level++)
+            {
+                float xpToLevelUp = progression.GetStat(Stat.ExperienceToLevelUp, characterClass, level);
+                if(xpToLevelUp > currentXP)
+                {
+                    return level;
+                }
+            }
+            return penultimateLevel + 1;
         }
 
       //  void UpdateLevel()

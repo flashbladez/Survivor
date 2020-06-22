@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Survivor.Resources
+namespace Survivor.Stats
 {
     public class ExperienceDisplay : MonoBehaviour
     {
