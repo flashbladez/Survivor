@@ -10,13 +10,16 @@ namespace Survivor.Resources
 {
     public class Health : MonoBehaviour,ISaveable
     {
-        [SerializeField] float healthPoints = 100f;
+        [SerializeField] float healthPoints = -1f;
 
         bool isDead = false;
 
         void Start()
         {
-            healthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
+            if (healthPoints < 0)
+            {
+                healthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
+            }
         }
 
         public float GetPercentage()
