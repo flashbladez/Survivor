@@ -15,21 +15,24 @@ namespace Survivor.Stats
 
         int currentLevel = 0;
 
-        //   void Start()
-        //  {
-        //      currentLevel = CalculateLevel();
+          void Start()
+          {
+              currentLevel = CalculateLevel();
         //      Experience experience = GetComponent<Experience>();
         //    if(experience != null)
         //    {
         //        experience.onExperienceGained += UpdateLevel;
         //    }
-        // }
+          }
+
         void Update()
         {
-            if(gameObject.tag == "Player")
+            int newLevel = CalculateLevel();
+            if(newLevel > currentLevel)
             {
-                print(Getlevel());
-            }
+                currentLevel = newLevel;
+                print("LevelledUp");
+            }        
         }
 
 
@@ -39,6 +42,11 @@ namespace Survivor.Stats
         }
 
         public int Getlevel()
+        {
+            return currentLevel;
+        }
+
+        public int CalculateLevel()
         {
             Experience experience = GetComponent<Experience>();
 
