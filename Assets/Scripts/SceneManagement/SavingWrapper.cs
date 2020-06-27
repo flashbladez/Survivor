@@ -11,7 +11,12 @@ namespace Survivor.SceneManagement
         [SerializeField] float fadeInTime = 2f;
         const string defaultSaveFile = "SavedFile";
 
-        IEnumerator Start()
+        void Awake()
+        {
+            StartCoroutine(LoadLastScene());
+        }
+
+        IEnumerator LoadLastScene()
         {
             Fader fader = FindObjectOfType<Fader>();
             fader.FadeOutImmediate();

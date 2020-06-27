@@ -15,24 +15,28 @@ namespace Survivor.Stats
 
         int currentLevel = 0;
 
-          void Start()
+        void Start()
           {
-              currentLevel = CalculateLevel();
-        //      Experience experience = GetComponent<Experience>();
-        //    if(experience != null)
-        //    {
-        //        experience.onExperienceGained += UpdateLevel;
-        //    }
-          }
+             currentLevel = CalculateLevel();
+          //   Experience experience = GetComponent<Experience>();
+           //  if(experience != null)
+             //{
+           //     experience.onExperienceGained += UpdateLevel;
+           //  }
+        }
 
         void Update()
         {
-            int newLevel = CalculateLevel();
-            if(newLevel > currentLevel)
-            {
+          
+           
+           int newLevel = CalculateLevel();
+           if (newLevel > currentLevel)
+           {
+                print(Getlevel());
                 currentLevel = newLevel;
-                print("LevelledUp");
-            }        
+                print("Levelled Up");
+           }
+           
         }
 
 
@@ -43,6 +47,10 @@ namespace Survivor.Stats
 
         public int Getlevel()
         {
+         //  if(currentLevel < 1)
+           // {
+            //    currentLevel = CalculateLevel();
+          //  }
             return currentLevel;
         }
 
@@ -53,9 +61,11 @@ namespace Survivor.Stats
             if(experience == null)
             {
                 return startingLevel;
-            }
+            } 
+
             float currentXP = experience.GetPoints();
             int penultimateLevel = progression.GetLevels(Stat.ExperienceToLevelUp, characterClass);
+
             for (int level = 1; level <= penultimateLevel; level++)
             {
                 float xpToLevelUp = progression.GetStat(Stat.ExperienceToLevelUp, characterClass, level);
@@ -67,19 +77,14 @@ namespace Survivor.Stats
             return penultimateLevel + 1;
         }
 
-      //  void UpdateLevel()
+       // void UpdateLevel()
       //  {
-      //      int newLevel = CalculateLevel();
-      //      if (newLevel > currentLevel)
-      //     {
-      //          currentLevel = newLevel;
-      //          print("Levelled Up");
-      //      }
-      //  }
-
-     //   int CalculateLevel()
-     //   {
-     //       return 0;
-     //   }
+        //    int newLevel = CalculateLevel();
+         //  if (newLevel > currentLevel)
+          //  {
+         ///       currentLevel = newLevel;
+          //      print("Levelled Up");
+           // }
+      // }
     }
 }

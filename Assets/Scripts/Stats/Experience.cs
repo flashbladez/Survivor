@@ -1,7 +1,5 @@
 ﻿using Survivor.Saving;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Survivor.Stats
@@ -10,8 +8,7 @@ namespace Survivor.Stats
     {
         [SerializeField] float experiencePoints = 0f;
 
-       // public delegate void ExperienceGainedDelegate();
-     //   public event Action onExperienceGained;
+      // public event Action onExperienceGained;
 
         public void GainExperience(float experience)
         {
