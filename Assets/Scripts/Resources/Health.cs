@@ -10,18 +10,27 @@ namespace Survivor.Resources
 {
     public class Health : MonoBehaviour,ISaveable
     {
-       float healthPoints = -1f;
+        [SerializeField] float regenerationPercentage = 70f;
+
+        float healthPoints = -1f;
 
         bool isDead = false;
 
         void Start()
         {
-            
+            GetComponent<BaseStats>().OnLevelUp += RegenerateHealth;
             if (healthPoints < 0)
             {
-                print(healthPoints);
-                healthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
+               healthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
             }
+        }
+
+        void RegenerateHealth()
+        {
+           // Debug.Log(healthPoints);
+            healthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
+            //float regenHealthPoints = GetComponent<BaseStats>().GetStat(Stat.Health) * (regenerationPercentage / 100);
+            //healthPoints = Mathf.Max(healthPoints, regenHealthPoints);
         }
 
         public float GetPercentage()

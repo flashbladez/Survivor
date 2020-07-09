@@ -8,12 +8,12 @@ namespace Survivor.Stats
     {
         [SerializeField] float experiencePoints = 0f;
 
-      // public event Action onExperienceGained;
+        public event Action onExperienceGained;
 
         public void GainExperience(float experience)
         {
             experiencePoints += experience;
-         //   onExperienceGained();
+            onExperienceGained();
         }
 
         public float GetPoints()

@@ -12,33 +12,26 @@ namespace Survivor.Stats
         [SerializeField] int startingLevel = 1;
         [SerializeField] CharacterClass characterClass;
         [SerializeField] Progression progression = null;
+        [SerializeField] GameObject levelUpParticleEffect = null;
 
         int currentLevel = 0;
 
+        public event Action OnLevelUp;
+
         void Start()
-          {
-             currentLevel = CalculateLevel();
-          //   Experience experience = GetComponent<Experience>();
-           //  if(experience != null)
-             //{
-           //     experience.onExperienceGained += UpdateLevel;
-           //  }
-        }
-
-        void Update()
         {
-          
-           
-           int newLevel = CalculateLevel();
-           if (newLevel > currentLevel)
-           {
-                print(Getlevel());
-                currentLevel = newLevel;
-                print("Levelled Up");
-           }
-           
+             currentLevel = CalculateLevel();
+             Experience experience = GetComponent<Experience>();
+             if(experience != null)
+             {
+                experience.onExperienceGained += UpdateLevel;
+             }
         }
 
+        void LevelUpEffect()
+        {
+            Instantiate(levelUpParticleEffect, transform);
+        }
 
         public float GetStat(Stat stat)
         {
@@ -47,11 +40,11 @@ namespace Survivor.Stats
 
         public int Getlevel()
         {
-         //  if(currentLevel < 1)
-           // {
-            //    currentLevel = CalculateLevel();
-          //  }
-            return currentLevel;
+           if(currentLevel < 1)
+           {
+                currentLevel = CalculateLevel();
+           }
+           return currentLevel;
         }
 
         public int CalculateLevel()
@@ -77,14 +70,16 @@ namespace Survivor.Stats
             return penultimateLevel + 1;
         }
 
-       // void UpdateLevel()
-      //  {
-        //    int newLevel = CalculateLevel();
-         //  if (newLevel > currentLevel)
-          //  {
-         ///       currentLevel = newLevel;
-          //      print("Levelled Up");
-           // }
-      // }
+        void UpdateLevel()
+        {
+            int newLevel = CalculateLevel();
+            if (newLevel > currentLevel)
+            {
+              //  print(Getlevel());
+                currentLevel = newLevel;
+                LevelUpEffect();
+                OnLevelUp();
+            }
+        }
     }
 }
