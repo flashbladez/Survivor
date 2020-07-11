@@ -6,9 +6,10 @@ using Survivor.Core;
 using System;
 using Survivor.Saving;
 using Survivor.Resources;
+using Survivor.Stats;
 
 namespace Survivor.Combat{
-    public class Fighter : MonoBehaviour, IAction,ISaveable
+    public class Fighter : MonoBehaviour, IAction,ISaveable,IModifierProvider
     {
        
         [SerializeField] float timeBetweenAttacks = 2f;
@@ -109,17 +110,19 @@ namespace Survivor.Combat{
         //animation event
         void Hit()
         {
-            if(target == null)
+
+            float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
+            if (target == null)
             {
                 return;
             }
             if (currentWeapon.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject);
+                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage);
             }
             else
             {
-                target.TakeDamage(gameObject,currentWeapon.GetDamage());
+                target.TakeDamage(gameObject,damage);
             }
           
         }
@@ -150,6 +153,14 @@ namespace Survivor.Combat{
             string weaponName = (string)state;
             Weapon weapon = UnityEngine.Resources.Load<Weapon>(weaponName);
             EquipWeapon(weapon);
+        }
+
+        public IEnumerable<float> GetAdditiveModifier(Stat stat)
+        {
+           if (stat == Stat.Damage)
+            {
+                yield return currentWeapon.GetDamage();
+            }
         }
     }    
 }

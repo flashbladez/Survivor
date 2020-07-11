@@ -7,6 +7,7 @@ namespace Survivor.Stats
     {
         Health,
         ExperienceReward,
-        ExperienceToLevelUp
+        ExperienceToLevelUp,
+        Damage
     }
 }

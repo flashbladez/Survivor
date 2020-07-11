@@ -35,7 +35,7 @@ namespace Survivor.Stats
 
         public float GetStat(Stat stat)
         {
-            return progression.GetStat(stat, characterClass, Getlevel());
+            return progression.GetStat(stat, characterClass, Getlevel()) + GetAdditiveModifier(stat);
         }
 
         public int Getlevel()
@@ -47,7 +47,20 @@ namespace Survivor.Stats
            return currentLevel;
         }
 
-        public int CalculateLevel()
+        float GetAdditiveModifier(Stat stat)
+        {
+            float total = 0;
+            foreach(IModifierProvider provider in GetComponents<IModifierProvider>())
+            {
+                foreach (float modifier in provider.GetAdditiveModifier(stat))
+                {
+                    total += modifier;
+                }
+            }
+            return total;
+        }
+
+        int CalculateLevel()
         {
             Experience experience = GetComponent<Experience>();
 

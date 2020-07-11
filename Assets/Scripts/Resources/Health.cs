@@ -69,6 +69,16 @@ namespace Survivor.Resources
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }
 
+        public float GetHealthPoints()
+        {
+            return healthPoints;
+        }
+
+        public float GetMaxHealthPoints()
+        {
+            return GetComponent<BaseStats>().GetStat(Stat.Health);
+        }
+
         public bool IsDead()
         {
             return isDead;
