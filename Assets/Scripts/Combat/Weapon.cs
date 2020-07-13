@@ -14,6 +14,7 @@ namespace Survivor.Combat
         [SerializeField] AnimatorOverrideController animatorOverride = null;
         [SerializeField] float weaponRange = 2f;
         [SerializeField] float weaponDamage = 5f;
+        [SerializeField] float percentageBonus = 0f;
         [SerializeField] Projectile projectile = null;
         [SerializeField] bool isRightHanded = true;
 
@@ -86,6 +87,11 @@ namespace Survivor.Combat
         public float GetDamage()
         {
             return weaponDamage;
+        }
+
+        public float GetPercentageBonus()
+        {
+            return percentageBonus;
         }
 
         public float GetRange()

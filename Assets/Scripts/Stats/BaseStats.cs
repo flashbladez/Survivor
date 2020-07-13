@@ -13,6 +13,7 @@ namespace Survivor.Stats
         [SerializeField] CharacterClass characterClass;
         [SerializeField] Progression progression = null;
         [SerializeField] GameObject levelUpParticleEffect = null;
+        [SerializeField] bool shouldUseModifiers = false;
 
         int currentLevel = 0;
 
@@ -35,7 +36,12 @@ namespace Survivor.Stats
 
         public float GetStat(Stat stat)
         {
-            return progression.GetStat(stat, characterClass, Getlevel()) + GetAdditiveModifier(stat);
+            return (GetBaseStat(stat) + GetAdditiveModifiers(stat)) * (1 + GetPercentageModifier(stat) / 100);
+        }
+
+        float GetBaseStat(Stat stat)
+        {
+            return progression.GetStat(stat, characterClass, Getlevel());
         }
 
         public int Getlevel()
@@ -47,12 +53,33 @@ namespace Survivor.Stats
            return currentLevel;
         }
 
-        float GetAdditiveModifier(Stat stat)
+        float GetAdditiveModifiers(Stat stat)
         {
+            if (!shouldUseModifiers)
+            {
+                return 0;
+            }
             float total = 0;
             foreach(IModifierProvider provider in GetComponents<IModifierProvider>())
             {
-                foreach (float modifier in provider.GetAdditiveModifier(stat))
+                foreach (float modifier in provider.GetAdditiveModifiers(stat))
+                {
+                    total += modifier;
+                }
+            }
+            return total;
+        }
+
+        float GetPercentageModifier(Stat stat)
+        {
+            if (!shouldUseModifiers)
+            {
+                return 0;
+            }
+            float total = 0;
+            foreach (IModifierProvider provider in GetComponents<IModifierProvider>())
+            {
+                foreach (float modifier in provider.GetPercentageModifiers(stat))
                 {
                     total += modifier;
                 }
