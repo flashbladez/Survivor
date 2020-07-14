@@ -30,12 +30,16 @@ namespace Survivor.Control
         float randomMaxDwellTime = 0;
         float randomMinDwellTime = 0;
 
-        void Start()
+        void Awake()
         {
-            player = GameObject.FindWithTag("Player");
             fighter = GetComponent<Fighter>();
             health = GetComponent<Health>();
             mover = GetComponent<Mover>();
+            player = GameObject.FindWithTag("Player");
+        }
+
+        void Start()
+        {
             guardPosition = transform.position;
             guardRotation = transform.rotation;
         }
@@ -43,7 +47,6 @@ namespace Survivor.Control
 
         void Update()
         {
-
             if (health.IsDead())
             {
                 return;

@@ -17,7 +17,7 @@ namespace Survivor.Movement{
         NavMeshAgent navMeshAgent;
         Health health;
 
-        void Start()
+        void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             health = GetComponent<Health>();

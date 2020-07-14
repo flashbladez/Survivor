@@ -16,17 +16,34 @@ namespace Survivor.Stats
         [SerializeField] bool shouldUseModifiers = false;
 
         int currentLevel = 0;
+        Experience experience;
 
         public event Action OnLevelUp;
+
+        void Awake()
+        {
+            experience = GetComponent<Experience>();
+        }
 
         void Start()
         {
              currentLevel = CalculateLevel();
-             Experience experience = GetComponent<Experience>();
-             if(experience != null)
-             {
+         }
+
+        void OnEnable()
+        {
+            if (experience != null)
+            {
                 experience.onExperienceGained += UpdateLevel;
-             }
+            }
+        }
+
+        void Disable()
+        {
+            if (experience != null)
+            {
+                experience.onExperienceGained -= UpdateLevel;
+            }
         }
 
         void LevelUpEffect()
@@ -89,7 +106,7 @@ namespace Survivor.Stats
 
         int CalculateLevel()
         {
-            Experience experience = GetComponent<Experience>();
+           // Experience experience = GetComponent<Experience>();
 
             if(experience == null)
             {

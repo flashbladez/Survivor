@@ -18,11 +18,20 @@ namespace Survivor.Resources
 
         void Start()
         {
-            GetComponent<BaseStats>().OnLevelUp += RegenerateHealth;
             if (healthPoints < 0)
             {
                healthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
             }
+        }
+
+        void OnEnable()
+        {
+            GetComponent<BaseStats>().OnLevelUp += RegenerateHealth;
+        }
+
+        void OnDisable()
+        {
+            GetComponent<BaseStats>().OnLevelUp -= RegenerateHealth;
         }
 
         void RegenerateHealth()

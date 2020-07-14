@@ -11,7 +11,7 @@ namespace Survivor.Control{
     {
         Health health;
 
-        void Start()
+        void Awake()
         {
             health = GetComponent<Health>();
         }
