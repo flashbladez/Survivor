@@ -1,4 +1,5 @@
 ﻿using Survivor.Resources;
+using Survivor.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ namespace Survivor.Stats
         [SerializeField] GameObject levelUpParticleEffect = null;
         [SerializeField] bool shouldUseModifiers = false;
 
-        int currentLevel = 0;
+        LazyValue<int> currentLevel;
+
         Experience experience;
 
         public event Action OnLevelUp;
@@ -23,12 +25,13 @@ namespace Survivor.Stats
         void Awake()
         {
             experience = GetComponent<Experience>();
+            currentLevel = new LazyValue<int>(CalculateLevel);
         }
 
         void Start()
         {
-             currentLevel = CalculateLevel();
-         }
+            currentLevel.ForceInit();
+        }
 
         void OnEnable()
         {
@@ -63,11 +66,7 @@ namespace Survivor.Stats
 
         public int Getlevel()
         {
-           if(currentLevel < 1)
-           {
-                currentLevel = CalculateLevel();
-           }
-           return currentLevel;
+            return currentLevel.value;
         }
 
         float GetAdditiveModifiers(Stat stat)
@@ -130,10 +129,10 @@ namespace Survivor.Stats
         void UpdateLevel()
         {
             int newLevel = CalculateLevel();
-            if (newLevel > currentLevel)
+            if (newLevel > currentLevel.value)
             {
               //  print(Getlevel());
-                currentLevel = newLevel;
+                currentLevel.value = newLevel;
                 LevelUpEffect();
                 OnLevelUp();
             }

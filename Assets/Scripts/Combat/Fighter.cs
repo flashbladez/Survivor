@@ -7,6 +7,7 @@ using System;
 using Survivor.Saving;
 using Survivor.Resources;
 using Survivor.Stats;
+using Survivor.Utils;
 
 namespace Survivor.Combat{
     public class Fighter : MonoBehaviour, IAction,ISaveable,IModifierProvider
@@ -19,14 +20,22 @@ namespace Survivor.Combat{
        
         Health target;
         float timeSinceLastAttack = Mathf.Infinity;
-        Weapon currentWeapon = null;
+        LazyValue<Weapon> currentWeapon = null;
+
+        void Awake()
+        {
+            currentWeapon = new LazyValue<Weapon>(SetUpDefaultWeapon);
+        }
+
+        Weapon SetUpDefaultWeapon()
+        {
+            AttachWeapon(defaultWeapon);
+            return defaultWeapon;
+        }
 
         void Start()
         {
-            if (currentWeapon == null)
-            {
-                EquipWeapon(defaultWeapon);
-            }
+            currentWeapon.ForceInit();
         }
 
         void Update()
@@ -54,13 +63,18 @@ namespace Survivor.Combat{
 
         public void EquipWeapon(Weapon weapon)
         {
-            if(weapon == null)
+            if (weapon == null)
             {
                 return;
             }
+            AttachWeapon(weapon);
+            currentWeapon.value = weapon;
+        }
+
+        private void AttachWeapon(Weapon weapon)
+        {
             Animator animator = GetComponent<Animator>();
             weapon.Spawn(rightHandTransform, leftHandTransform, animator);
-            currentWeapon = weapon;
         }
 
         public Health GetTarget()
@@ -116,9 +130,9 @@ namespace Survivor.Combat{
             {
                 return;
             }
-            if (currentWeapon.HasProjectile())
+            if (currentWeapon.value.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage);
+                currentWeapon.value.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage);
             }
             else
             {
@@ -134,7 +148,7 @@ namespace Survivor.Combat{
 
         bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, target.transform.position) < currentWeapon.GetRange();
+            return Vector3.Distance(transform.position, target.transform.position) < currentWeapon.value.GetRange();
         }
 
         public void Cancel()
@@ -145,7 +159,7 @@ namespace Survivor.Combat{
 
         public object CaptureState()
         {
-            return currentWeapon.name;
+            return currentWeapon.value.name;
         }
 
         public void RestoreState(object state)
@@ -159,7 +173,7 @@ namespace Survivor.Combat{
         {
            if (stat == Stat.Damage)
            {
-                yield return currentWeapon.GetDamage();
+                yield return currentWeapon.value.GetDamage();
            }
         }
 
@@ -167,7 +181,7 @@ namespace Survivor.Combat{
         {
             if (stat == Stat.Damage)
             {
-                yield return currentWeapon.GetPercentageBonus();
+                yield return currentWeapon.value.GetPercentageBonus();
             }
         }
     }    

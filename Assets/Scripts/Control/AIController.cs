@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Survivor.Resources;
 using Survivor.Core;
+using Survivor.Utils;
+using System;
 
 namespace Survivor.Control
 {
@@ -22,7 +24,7 @@ namespace Survivor.Control
         GameObject player;
         Health health;
         Mover mover;
-        Vector3 guardPosition;
+        LazyValue<Vector3> guardPosition;
         Quaternion guardRotation;
         float timeSinceLastSawPlayer = Mathf.Infinity;
         float timeSinceArrivedAtWaypoint = Mathf.Infinity;
@@ -36,11 +38,12 @@ namespace Survivor.Control
             health = GetComponent<Health>();
             mover = GetComponent<Mover>();
             player = GameObject.FindWithTag("Player");
+            guardPosition = new LazyValue<Vector3>(GetGuardPosition);
         }
 
         void Start()
         {
-            guardPosition = transform.position;
+            guardPosition.ForceInit();      
             guardRotation = transform.rotation;
         }
 
@@ -63,7 +66,6 @@ namespace Survivor.Control
             else
             {
                 PatrolBehaviour();
-
             }
             UpdateTimers();
 
@@ -83,7 +85,7 @@ namespace Survivor.Control
 
         void PatrolBehaviour()
         {
-            Vector3 nextPosition = guardPosition;
+            Vector3 nextPosition = guardPosition.value;
             if (patrolPath != null)
             {
                 if (AtWaypoint())
@@ -99,7 +101,7 @@ namespace Survivor.Control
                  mover.StartMoveAction(nextPosition,patrolSpeedFraction);
             }
            
-            if (transform.position.z == guardPosition.z)
+            if (transform.position.z == guardPosition.value.z)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, guardRotation, Time.deltaTime);
             }
@@ -113,13 +115,18 @@ namespace Survivor.Control
 
         void CycleWaypoint()
         {
-            randomMaxDwellTime = Random.Range(randomMinDwellTime, waypointDwellTime);
+            randomMaxDwellTime = UnityEngine.Random.Range(randomMinDwellTime, waypointDwellTime);
             currentWaypointIndex = patrolPath.GetNextIndex(currentWaypointIndex);
         }
 
         Vector3 GetCurrentWaypoint()
         {
             return patrolPath.GetWaypoint(currentWaypointIndex);
+        }
+
+        Vector3 GetGuardPosition()
+        {
+            return transform.position;
         }
 
         bool InAttackRangeOfPlayer()
