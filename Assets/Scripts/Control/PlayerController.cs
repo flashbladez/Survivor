@@ -3,13 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using Survivor.Movement;
 using Survivor.Combat;
-using System;
 using Survivor.Resources;
 
 namespace Survivor.Control{
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] CursorMapping[] cursorMappings = null;
+
         Health health;
+
+        enum CursorType
+        {
+            None,
+            Movement,
+            Combat
+        }
+
+        [System.Serializable]
+        struct CursorMapping
+        {
+            public CursorType type;
+            public Texture2D texture;
+            public Vector2 hotspot;
+        }
 
         void Awake()
         {
@@ -31,6 +47,7 @@ namespace Survivor.Control{
             {
                 return;
             }
+            SetCursor(CursorType.None);
         }
 
         bool InteractWithCombat()
@@ -52,6 +69,8 @@ namespace Survivor.Control{
                 {
                     GetComponent<Fighter>().Attack(target.gameObject);
                 }
+                SetCursor(CursorType.Combat);
+
                 return true;
             }
             return false;
@@ -69,11 +88,30 @@ namespace Survivor.Control{
                 {
                     GetComponent<Mover>().StartMoveAction(hit.point,1f);
                 }
+                SetCursor(CursorType.Movement);
                 return true;
             }
             return false;
         }
 
+        void SetCursor(CursorType type)
+        {
+            CursorMapping mapping = GetCursorMapping(type);
+            Cursor.SetCursor(mapping.texture,mapping.hotspot,CursorMode.Auto);
+        }
+
+        CursorMapping GetCursorMapping(CursorType type)
+        {
+            foreach(CursorMapping mapping in cursorMappings)
+            {
+                if(mapping.type == type)
+                {
+                    return mapping;
+                }
+
+            }
+            return cursorMappings[0];
+        }
 
         private static Ray GetMouseRay()
         {
