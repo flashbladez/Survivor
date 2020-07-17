@@ -102,7 +102,7 @@ namespace Survivor.Resources
 
         public object CaptureState()
         {
-            return healthPoints;
+            return healthPoints.value;
         }
 
         public void RestoreState(object state)
