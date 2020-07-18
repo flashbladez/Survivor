@@ -4,6 +4,8 @@ using UnityEngine;
 using Survivor.Movement;
 using Survivor.Combat;
 using Survivor.Resources;
+using System;
+using UnityEngine.EventSystems;
 
 namespace Survivor.Control{
     public class PlayerController : MonoBehaviour
@@ -16,7 +18,8 @@ namespace Survivor.Control{
         {
             None,
             Movement,
-            Combat
+            Combat,
+            UI
         }
 
         [System.Serializable]
@@ -34,14 +37,22 @@ namespace Survivor.Control{
 
         void Update()
         {
+            if (InteractWithUI())
+            {
+                return;
+            }
+
             if (health.IsDead())
             {
+                SetCursor(CursorType.None);
                 return;
             }
-            if (InteractWithCombat() )
+
+            if (InteractWithComponent())
             {
                 return;
             }
+
             // click to move code
             if(InteractWithMovement())
             {
@@ -50,27 +61,29 @@ namespace Survivor.Control{
             SetCursor(CursorType.None);
         }
 
-        bool InteractWithCombat()
+        bool InteractWithComponent()
         {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
-            foreach(RaycastHit hit in hits)
+            foreach (RaycastHit hit in hits)
             {
-                CombatTarget target = hit.transform.GetComponent<CombatTarget>();
+                IRaycastable[] raycastables = hit.transform.GetComponents<IRaycastable>();
+                foreach(IRaycastable raycastable in raycastables)
+                {
+                    if (raycastable.HandleRaycast(this))
+                    {
+                        SetCursor(CursorType.Combat);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
-                if(target == null)
-                {
-                    continue;
-                }
-                if(!GetComponent<Fighter>().CanAttack(target.gameObject))
-                {
-                    continue;
-                }
-                if (Input.GetMouseButton(0))
-                {
-                    GetComponent<Fighter>().Attack(target.gameObject);
-                }
-                SetCursor(CursorType.Combat);
-
+        bool InteractWithUI()
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                SetCursor(CursorType.UI);
                 return true;
             }
             return false;
