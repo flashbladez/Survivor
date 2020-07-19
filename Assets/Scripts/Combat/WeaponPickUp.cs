@@ -50,5 +50,10 @@ namespace Survivor.Combat
             }
             return true;
         }
+
+        public CursorType GetCursorType()
+        {
+            return CursorType.Pickup;
+        }
     }
 }

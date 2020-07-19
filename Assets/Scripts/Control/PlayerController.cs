@@ -14,14 +14,6 @@ namespace Survivor.Control{
 
         Health health;
 
-        enum CursorType
-        {
-            None,
-            Movement,
-            Combat,
-            UI
-        }
-
         [System.Serializable]
         struct CursorMapping
         {
@@ -63,7 +55,7 @@ namespace Survivor.Control{
 
         bool InteractWithComponent()
         {
-            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+            RaycastHit[] hits = RaycastAllSorted();
             foreach (RaycastHit hit in hits)
             {
                 IRaycastable[] raycastables = hit.transform.GetComponents<IRaycastable>();
@@ -71,7 +63,7 @@ namespace Survivor.Control{
                 {
                     if (raycastable.HandleRaycast(this))
                     {
-                        SetCursor(CursorType.Combat);
+                        SetCursor(raycastable.GetCursorType());
                         return true;
                     }
                 }
@@ -107,6 +99,18 @@ namespace Survivor.Control{
             return false;
         }
 
+        RaycastHit[] RaycastAllSorted()
+        {
+            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+            float[] distances = new float[hits.Length];
+            for(int i = 0;i < hits.Length; i++)
+            {
+                distances[i] = hits[i].distance;
+            }
+            Array.Sort(distances, hits);//rearranges first array dependant on second
+            return hits;
+        }
+
         void SetCursor(CursorType type)
         {
             CursorMapping mapping = GetCursorMapping(type);
@@ -126,7 +130,7 @@ namespace Survivor.Control{
             return cursorMappings[0];
         }
 
-        private static Ray GetMouseRay()
+        static Ray GetMouseRay()
         {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
