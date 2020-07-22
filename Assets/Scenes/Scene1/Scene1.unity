@@ -386,6 +386,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 399569e872d0cef43a4d7dc2725359f1,
         type: 2}
+    - target: {fileID: 428252943683352061, guid: c6f17d5f136aab941b00d42688afd5aa,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6f17d5f136aab941b00d42688afd5aa, type: 3}
 --- !u!4 &107458320 stripped
@@ -658,6 +663,11 @@ PrefabInstance:
     - target: {fileID: 6347164732336836011, guid: c6f17d5f136aab941b00d42688afd5aa,
         type: 3}
       propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428252943683352061, guid: c6f17d5f136aab941b00d42688afd5aa,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -991,6 +1001,11 @@ PrefabInstance:
         type: 3}
       propertyPath: chaseDistance
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011053901418242693, guid: bb21d837c8b89d8429f5ad18574c35d3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb21d837c8b89d8429f5ad18574c35d3, type: 3}
@@ -1639,6 +1654,26 @@ PrefabInstance:
       propertyPath: cursorMappings.Array.data[4].texture
       value: 
       objectReference: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
+    - target: {fileID: 426091625411275695, guid: 539f85b2f8a9e2444947322a321c9af0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1594.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 426091625411275695, guid: 539f85b2f8a9e2444947322a321c9af0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -161.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6935237255118048247, guid: 539f85b2f8a9e2444947322a321c9af0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7890231874656128194, guid: 539f85b2f8a9e2444947322a321c9af0,
+        type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 539f85b2f8a9e2444947322a321c9af0, type: 3}
 --- !u!1 &6711421821172209244 stripped
