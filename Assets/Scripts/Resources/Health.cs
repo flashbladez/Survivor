@@ -13,10 +13,16 @@ namespace Survivor.Resources
     public class Health : MonoBehaviour,ISaveable
     {
         [SerializeField] float regenerationPercentage = 70f;
-        [SerializeField] UnityEvent takeDamage;
+        [SerializeField] TakeDamageEvent takeDamage;
         LazyValue<float> healthPoints;
 
         bool isDead = false;
+
+        [System.Serializable]
+        public class TakeDamageEvent : UnityEvent<float>
+        {
+
+        }
 
         void Awake()
         {
@@ -61,7 +67,7 @@ namespace Survivor.Resources
             }
             else
             {
-                takeDamage.Invoke();
+                takeDamage.Invoke(damage);
             }
         }
 

@@ -655,6 +655,11 @@ PrefabInstance:
       propertyPath: handTransform
       value: 
       objectReference: {fileID: 286105354}
+    - target: {fileID: 428252943683352061, guid: c6f17d5f136aab941b00d42688afd5aa,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3413398796814722816, guid: c6f17d5f136aab941b00d42688afd5aa,
         type: 3}
       propertyPath: healthPoints
@@ -663,11 +668,6 @@ PrefabInstance:
     - target: {fileID: 6347164732336836011, guid: c6f17d5f136aab941b00d42688afd5aa,
         type: 3}
       propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 428252943683352061, guid: c6f17d5f136aab941b00d42688afd5aa,
-        type: 3}
-      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

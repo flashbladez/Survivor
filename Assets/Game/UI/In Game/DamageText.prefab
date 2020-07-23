@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a6076a6fbce3643958acf9dacf19eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageText: {fileID: 4241562887161882635}
 --- !u!1 &2012637433411341866
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +186,7 @@ Animation:
   - {fileID: 7400000, guid: 57cad898ee49105468decb67076b91af, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_CullingType: 0
 --- !u!114 &1667878781042048955
 MonoBehaviour:
