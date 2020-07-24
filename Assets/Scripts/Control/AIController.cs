@@ -3,7 +3,7 @@ using Survivor.Movement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Survivor.Resources;
+using Survivor.Attributes;
 using Survivor.Core;
 using Survivor.Utils;
 using System;

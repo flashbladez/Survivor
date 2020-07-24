@@ -1,4 +1,4 @@
-﻿using Survivor.Resources;
+﻿using Survivor.Attributes;
 using Survivor.Utils;
 using System;
 using System.Collections;

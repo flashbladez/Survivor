@@ -8,7 +8,7 @@ using System;
 using Survivor.Utils;
 using UnityEngine.Events;
 
-namespace Survivor.Resources
+namespace Survivor.Attributes
 {
     public class Health : MonoBehaviour,ISaveable
     {
@@ -54,6 +54,11 @@ namespace Survivor.Resources
         public float GetPercentage()
         {
             return 100 * (healthPoints.value / GetComponent<BaseStats>().GetStat(Stat.Health));
+        }
+
+        public float GetFraction()
+        {
+            return (healthPoints.value / GetComponent<BaseStats>().GetStat(Stat.Health));
         }
 
         public void TakeDamage(GameObject instigator, float damage)

@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Survivor.Resources;
+using Survivor.Attributes;
 
 namespace Survivor.Combat
 {

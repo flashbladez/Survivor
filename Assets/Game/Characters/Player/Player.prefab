@@ -28,6 +28,8 @@ MonoBehaviour:
   - type: 4
     texture: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
     hotspot: {x: 0, y: 0}
+  maxNavMeshProjectionDistance: 1
+  maxNavPathLength: 40
 --- !u!114 &2203639062434414425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +182,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5936370800334421067, guid: 6c2d4f64d914b81419aca9075bc77e7b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4937671492262925134, guid: 6c2d4f64d914b81419aca9075bc77e7b,
         type: 3}
       propertyPath: characterClass
@@ -223,6 +230,11 @@ PrefabInstance:
         type: 3}
       propertyPath: uniqueIdentifier
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3504771178560388806, guid: 6c2d4f64d914b81419aca9075bc77e7b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c2d4f64d914b81419aca9075bc77e7b, type: 3}

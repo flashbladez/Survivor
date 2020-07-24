@@ -5,7 +5,7 @@ using Survivor.Movement;
 using Survivor.Core;
 using System;
 using Survivor.Saving;
-using Survivor.Resources;
+using Survivor.Attributes;
 using Survivor.Stats;
 using Survivor.Utils;
 

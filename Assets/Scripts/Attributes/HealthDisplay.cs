@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Survivor.Resources
+namespace Survivor.Attributes
 {
     public class HealthDisplay : MonoBehaviour
     {
