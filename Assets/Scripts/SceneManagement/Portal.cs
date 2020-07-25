@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
+using Survivor.Control;
+
 namespace Survivor.SceneManagement
 {
     public class Portal : MonoBehaviour
@@ -38,21 +40,33 @@ namespace Survivor.SceneManagement
             }
             DontDestroyOnLoad(gameObject);
             Fader fader = FindObjectOfType<Fader>();
-            yield return fader.FadeOut(fadeOutTime);
-
             //save current scene
             SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
+
+            //remove control
+            PlayerController playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            playerController.enabled = false;
+
+            yield return fader.FadeOut(fadeOutTime);
             wrapper.Save();
+
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
+
+            //remove control of new player prefab
+            PlayerController newPlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            newPlayerController.enabled = false;
+
             //load current scene
             wrapper.Load();
-
             Portal otherPortal = GetOtherPortal();
             UpdatePlayer(otherPortal);
             wrapper.Save();
             yield return new WaitForSeconds(fadeWaitTime);
-            yield return fader.FadeIn(fadeInTime);
-           
+            fader.FadeIn(fadeInTime);
+
+            //restore control
+            newPlayerController.enabled = true;
+
             Destroy(gameObject);
         }
 

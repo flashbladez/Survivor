@@ -21,24 +21,24 @@ namespace Survivor.SceneManagement
             canvasGroup.alpha = 1;
         }
 
-        public IEnumerator FadeOut(float time)
+        public Coroutine FadeOut(float time)
         {
             return Fade(1f, time);
         }
 
-        public IEnumerator FadeIn(float time)
+        public Coroutine FadeIn(float time)
         {
             return Fade(0f, time);
         }
 
-        IEnumerator Fade(float target,float time)
+        Coroutine Fade(float target,float time)
         {
             if (currentlyActiveFade != null)
             {
                 StopCoroutine(currentlyActiveFade);
             }
             currentlyActiveFade = StartCoroutine(FadeRoutine(target, time));
-            yield return currentlyActiveFade;
+            return currentlyActiveFade;
         }
 
         IEnumerator FadeRoutine(float target, float time)
