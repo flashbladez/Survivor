@@ -14,6 +14,8 @@ namespace Survivor.Attributes
     {
         [SerializeField] float regenerationPercentage = 70f;
         [SerializeField] TakeDamageEvent takeDamage;
+        [SerializeField] UnityEvent onDie;
+
         LazyValue<float> healthPoints;
 
         bool isDead = false;
@@ -67,6 +69,7 @@ namespace Survivor.Attributes
           
             if (healthPoints.value == 0)
             {
+                onDie.Invoke();
                 Die();
                 AwardExperience(instigator);
             }

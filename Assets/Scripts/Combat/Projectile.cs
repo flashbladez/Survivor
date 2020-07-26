@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Survivor.Attributes;
+using UnityEngine.Events;
 
 namespace Survivor.Combat
 {
@@ -13,6 +14,7 @@ namespace Survivor.Combat
         [SerializeField] float maxLifetime = 5f;
         [SerializeField] GameObject[] destroyOnHit = null;
         [SerializeField] float lifeAfterImpact = 2f;
+        [SerializeField] UnityEvent onHit;
 
         Health target = null;
         float damage = 0;
@@ -67,6 +69,7 @@ namespace Survivor.Combat
             target.TakeDamage(instigator,damage);
 
             speed = 0;
+            onHit.Invoke();
             if(hitEffect != null)
             {
                 Instantiate(hitEffect, GetAimLocation(), transform.rotation);
