@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ae60de63fb77cf429071f21d6b6b6b5, type: 3}
-  m_Name: Sword
+  m_Name: RedSimpleBow
   m_EditorClassIdentifier: 
-  equippedPrefab: {fileID: 5962453781274581259, guid: 2b49c21eff176eb458dfbfd6d2b626f4,
+  equippedPrefab: {fileID: 9211398920013900981, guid: 1e9797b55dbf06c4f8040f7337ef20dd,
     type: 3}
-  animatorOverride: {fileID: 22100000, guid: facc4bb8bf4c1304ab1ff249c96e73c1, type: 2}
-  weaponRange: 2
+  animatorOverride: {fileID: 22100000, guid: 4a3066767d3f79a459bf60fa4e9960c8, type: 2}
+  weaponRange: 20
   weaponDamage: 10
-  projectile: {fileID: 0}
-  isRightHanded: 1
+  percentageBonus: 0
+  projectile: {fileID: 4532230898828994009, guid: 938ad26552978d44bac48e2db8d61945,
+    type: 3}
+  isRightHanded: 0

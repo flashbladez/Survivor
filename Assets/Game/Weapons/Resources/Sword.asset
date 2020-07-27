@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ae60de63fb77cf429071f21d6b6b6b5, type: 3}
-  m_Name: BlueSimpleBow
+  m_Name: Sword
   m_EditorClassIdentifier: 
-  equippedPrefab: {fileID: 6627275079943958739, guid: 1e9797b55dbf06c4f8040f7337ef20dd,
+  equippedPrefab: {fileID: 5875571899661143011, guid: 2b49c21eff176eb458dfbfd6d2b626f4,
     type: 3}
-  animatorOverride: {fileID: 22100000, guid: 4a3066767d3f79a459bf60fa4e9960c8, type: 2}
-  weaponRange: 20
+  animatorOverride: {fileID: 22100000, guid: facc4bb8bf4c1304ab1ff249c96e73c1, type: 2}
+  weaponRange: 2
   weaponDamage: 10
-  projectile: {fileID: 2927701000727922118, guid: ea0adbe6dd0eab441ab987fee63f9cb8,
-    type: 3}
-  isRightHanded: 0
+  percentageBonus: 0
+  projectile: {fileID: 0}
+  isRightHanded: 1
