@@ -14,23 +14,19 @@ namespace Survivor.Combat{
     {
        
         [SerializeField] float timeBetweenAttacks = 2f;
-        [SerializeField] Weapon defaultWeapon = null;
+        [SerializeField] WeaponConfig defaultWeapon = null;
         [SerializeField] Transform rightHandTransform = null;
         [SerializeField] Transform leftHandTransform = null;
        
         Health target;
         float timeSinceLastAttack = Mathf.Infinity;
-        LazyValue<Weapon> currentWeapon = null;
+        WeaponConfig currentWeaponConfig = null;
+        LazyValue<Weapon> currentWeapon;
 
         void Awake()
         {
+            currentWeaponConfig = defaultWeapon;
             currentWeapon = new LazyValue<Weapon>(SetUpDefaultWeapon);
-        }
-
-        Weapon SetUpDefaultWeapon()
-        {
-            AttachWeapon(defaultWeapon);
-            return defaultWeapon;
         }
 
         void Start()
@@ -61,21 +57,26 @@ namespace Survivor.Combat{
             }
         }
 
-        public void EquipWeapon(Weapon weapon)
+        Weapon SetUpDefaultWeapon()
+        {
+            return AttachWeapon(defaultWeapon);
+        }
+
+        public void EquipWeapon(WeaponConfig weapon)
         {
             if (weapon == null)
             {
                 return;
             }
-            AttachWeapon(weapon);
-            currentWeapon.value = weapon;
+            currentWeaponConfig = weapon;
+            currentWeapon.value = AttachWeapon(weapon);
         }
 
-        private void AttachWeapon(Weapon weapon)
+        Weapon AttachWeapon(WeaponConfig weapon)
         {
             Animator animator = GetComponent<Animator>();
-            weapon.Spawn(rightHandTransform, leftHandTransform, animator);
-        }
+           return weapon.Spawn(rightHandTransform, leftHandTransform, animator);
+         }
 
         public Health GetTarget()
         {
@@ -126,13 +127,18 @@ namespace Survivor.Combat{
         {
 
             float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
+
+            if(currentWeapon.value != null)
+            {
+                currentWeapon.value.OnHit();
+            }
             if (target == null)
             {
                 return;
             }
-            if (currentWeapon.value.HasProjectile())
+            if (currentWeaponConfig.HasProjectile())
             {
-                currentWeapon.value.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage);
+                currentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage);
             }
             else
             {
@@ -148,7 +154,7 @@ namespace Survivor.Combat{
 
         bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, target.transform.position) < currentWeapon.value.GetRange();
+            return Vector3.Distance(transform.position, target.transform.position) < currentWeaponConfig.GetRange();
         }
 
         public void Cancel()
@@ -159,13 +165,13 @@ namespace Survivor.Combat{
 
         public object CaptureState()
         {
-            return currentWeapon.value.name;
+            return currentWeaponConfig.name;
         }
 
         public void RestoreState(object state)
         {
             string weaponName = (string)state;
-            Weapon weapon = UnityEngine.Resources.Load<Weapon>(weaponName);
+            WeaponConfig weapon = UnityEngine.Resources.Load<WeaponConfig>(weaponName);
             EquipWeapon(weapon);
         }
 
@@ -173,7 +179,7 @@ namespace Survivor.Combat{
         {
            if (stat == Stat.Damage)
            {
-                yield return currentWeapon.value.GetDamage();
+                yield return currentWeaponConfig.GetDamage();
            }
         }
 
@@ -181,7 +187,7 @@ namespace Survivor.Combat{
         {
             if (stat == Stat.Damage)
             {
-                yield return currentWeapon.value.GetPercentageBonus();
+                yield return currentWeaponConfig.GetPercentageBonus();
             }
         }
     }    

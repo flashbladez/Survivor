@@ -1,27 +1,39 @@
-﻿using Survivor.Control;
+﻿using Survivor.Attributes;
+using Survivor.Control;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace Survivor.Combat
 {
     public class WeaponPickUp : MonoBehaviour,IRaycastable
     {
-        [SerializeField] Weapon weapon = null;
+        [SerializeField] WeaponConfig weapon = null;
+        [SerializeField] float healthToRestore = 0f;
         [SerializeField] float respawnTime = 5f;
 
         void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag == "Player")
             {
-                PickUp(other.GetComponent<Fighter>());
+                PickUp(other.gameObject);
             }
 
         }
 
-        void PickUp(Fighter fighter)
+        void PickUp(GameObject subject)
         {
-           fighter.EquipWeapon(weapon);
+            if(weapon != null)
+            {
+                subject.GetComponent<Fighter>().EquipWeapon(weapon);
+            }
+
+            if(healthToRestore > 0)
+            {
+                subject.GetComponent<Health>().Heal(healthToRestore);
+            }
+           
             StartCoroutine(HideForSeconds(respawnTime));
         }
 
@@ -46,7 +58,7 @@ namespace Survivor.Combat
         {
             if (Input.GetMouseButtonDown(0))
             {
-                PickUp(callingController.GetComponent<Fighter>());
+                PickUp(callingController.gameObject);
             }
             return true;
         }
