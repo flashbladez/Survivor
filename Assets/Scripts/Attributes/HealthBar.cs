@@ -8,12 +8,21 @@ namespace Survivor.Attributes
         [SerializeField] Health healthComponent = null;
         [SerializeField] RectTransform foreground = null;
         [SerializeField] Canvas rootCanvas = null;
+        [SerializeField] bool isEnabledOutOfCombat = false;
 
         void Update()
         {
             if (Mathf.Approximately(healthComponent.GetFraction(), 0) || Mathf.Approximately(healthComponent.GetFraction(),1))
             {
-                rootCanvas.enabled = false;
+                if (!isEnabledOutOfCombat)
+                {
+                    rootCanvas.enabled = false;
+                }
+                else
+                {
+                    rootCanvas.enabled = true;
+                }
+
                 return;
             }
             rootCanvas.enabled = true;

@@ -14,6 +14,7 @@ namespace Survivor.Control
     {
         [SerializeField] float chaseDistance = 5f; // max detection range to give chase
         [SerializeField] float suspicionTime = 5f;
+        [SerializeField] float aggroCooldownTime = 5f;
         [SerializeField] float waypointTolerance = 1f;
         [SerializeField] float waypointDwellTime = 5f;
         [Range(0,1)]
@@ -28,6 +29,7 @@ namespace Survivor.Control
         Quaternion guardRotation;
         float timeSinceLastSawPlayer = Mathf.Infinity;
         float timeSinceArrivedAtWaypoint = Mathf.Infinity;
+        float timeSinceAggrevated = Mathf.Infinity;
         int currentWaypointIndex = 0;
         float randomMaxDwellTime = 0;
         float randomMinDwellTime = 0;
@@ -55,7 +57,7 @@ namespace Survivor.Control
                 return;
             }
             // GameObject player = GameObject.FindWithTag("Player");
-            if (InAttackRangeOfPlayer() && fighter.CanAttack(player))
+            if (IsAggrevated() && fighter.CanAttack(player))
             {
                 AttackBehaviour();
             }
@@ -69,6 +71,11 @@ namespace Survivor.Control
             }
             UpdateTimers();
 
+        }
+
+        public void Aggrevate()
+        {
+            timeSinceAggrevated = 0;
         }
 
         void AttackBehaviour()
@@ -129,15 +136,16 @@ namespace Survivor.Control
             return transform.position;
         }
 
-        bool InAttackRangeOfPlayer()
+        bool IsAggrevated()
         {
             float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
-            return distanceToPlayer < chaseDistance;
+            return distanceToPlayer < chaseDistance || timeSinceAggrevated < aggroCooldownTime;
         }
 
         void UpdateTimers()
         {
             timeSinceLastSawPlayer += Time.deltaTime;
+            timeSinceAggrevated += Time.deltaTime;
             timeSinceArrivedAtWaypoint += Time.deltaTime;
         }
 
