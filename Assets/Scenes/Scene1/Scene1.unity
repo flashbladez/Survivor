@@ -226,7 +226,7 @@ PrefabInstance:
     - target: {fileID: 5953706749249116563, guid: c6f17d5f136aab941b00d42688afd5aa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -471.04803
+      value: -476.8
       objectReference: {fileID: 0}
     - target: {fileID: 5953706749249116563, guid: c6f17d5f136aab941b00d42688afd5aa,
         type: 3}
@@ -236,7 +236,7 @@ PrefabInstance:
     - target: {fileID: 5953706749249116563, guid: c6f17d5f136aab941b00d42688afd5aa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 278.56708
+      value: 301.3
       objectReference: {fileID: 0}
     - target: {fileID: 5953706749249116563, guid: c6f17d5f136aab941b00d42688afd5aa,
         type: 3}
@@ -1506,6 +1506,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Core
       objectReference: {fileID: 0}
+    - target: {fileID: 5373155392265918730, guid: 539f85b2f8a9e2444947322a321c9af0,
+        type: 3}
+      propertyPath: healthPoints
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6711421820872604026, guid: 539f85b2f8a9e2444947322a321c9af0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1614,11 +1619,6 @@ PrefabInstance:
       propertyPath: startingLevel
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 5373155392265918730, guid: 539f85b2f8a9e2444947322a321c9af0,
-        type: 3}
-      propertyPath: healthPoints
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 5927629901514923037, guid: 539f85b2f8a9e2444947322a321c9af0,
         type: 3}
       propertyPath: cursorMappings.Array.size
@@ -1669,6 +1669,16 @@ PrefabInstance:
       propertyPath: cursorMappings.Array.data[4].texture
       value: 
       objectReference: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
+    - target: {fileID: 5927629901514923037, guid: 539f85b2f8a9e2444947322a321c9af0,
+        type: 3}
+      propertyPath: raycastRadius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927629901514923037, guid: 539f85b2f8a9e2444947322a321c9af0,
+        type: 3}
+      propertyPath: maxNavMeshProjectionDistance
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 426091625411275695, guid: 539f85b2f8a9e2444947322a321c9af0,
         type: 3}
       propertyPath: m_LocalPosition.x

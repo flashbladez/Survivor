@@ -46,7 +46,7 @@ namespace Survivor.Combat{
             {
                 return;
             }
-            if (!GetIsInRange())
+            if (!GetIsInRange(target.transform))
             {
                 GetComponent<Mover>().MoveTo(target.transform.position,1f);
             }
@@ -111,7 +111,7 @@ namespace Survivor.Combat{
             {
                 return false;
             }
-            if (!GetComponent<Mover>().CanMoveTo(combatTarget.transform.position))
+            if (!GetComponent<Mover>().CanMoveTo(combatTarget.transform.position) && !GetIsInRange(combatTarget.transform))
             {
                 return false;
             }
@@ -156,9 +156,9 @@ namespace Survivor.Combat{
             Hit();
         }
 
-        bool GetIsInRange()
+        bool GetIsInRange(Transform targetTransform)
         {
-            return Vector3.Distance(transform.position, target.transform.position) < currentWeaponConfig.GetRange();
+            return Vector3.Distance(transform.position, targetTransform.position) < currentWeaponConfig.GetRange();
         }
 
         public void Cancel()

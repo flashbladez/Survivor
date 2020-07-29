@@ -233,6 +233,7 @@ MonoBehaviour:
   healthComponent: {fileID: 0}
   foreground: {fileID: 513104212314517503}
   rootCanvas: {fileID: 4420496623327578660}
+  isEnabledOutOfCombat: 0
 --- !u!1 &7193930009472865630
 GameObject:
   m_ObjectHideFlags: 0

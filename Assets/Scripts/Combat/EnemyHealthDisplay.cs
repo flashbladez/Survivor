@@ -16,6 +16,10 @@ namespace Survivor.Combat
             fighter = GameObject.FindWithTag("Player").GetComponent<Fighter>();
         }
 
+        private void Start()
+        {
+           
+        }
 
         void Update()
         {
@@ -26,6 +30,7 @@ namespace Survivor.Combat
             }
             Health health = fighter.GetTarget();
             GetComponent<Text>().text = String.Format("{0:0}/{1:0}", health.GetHealthPoints(), health.GetMaxHealthPoints());
+           //GameObject.FindWithTag("EnemyHealthBar").GetComponent<HealthBar>().GetHealthRef(health);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Survivor.Attributes
         [SerializeField] RectTransform foreground = null;
         [SerializeField] Canvas rootCanvas = null;
         [SerializeField] bool isEnabledOutOfCombat = false;
+        [SerializeField] GameObject Healthbar = null;
 
         void Update()
         {
@@ -17,18 +18,21 @@ namespace Survivor.Attributes
                 if (!isEnabledOutOfCombat)
                 {
                     rootCanvas.enabled = false;
-                }
-                else
-                {
-                    rootCanvas.enabled = true;
-                }
-
-                return;
+                    return;
+                }             
             }
             rootCanvas.enabled = true;
 
             foreground.localScale = new Vector3(healthComponent.GetFraction(), 1f, 1f);
 
+        }
+
+        public void GetHealthRef(Health health)
+        {
+            if (healthComponent != null)
+            {
+                healthComponent = health;
+            }
         }
     }
 }
