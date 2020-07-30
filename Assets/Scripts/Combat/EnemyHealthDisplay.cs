@@ -9,28 +9,25 @@ namespace Survivor.Combat
 {
     public class EnemyHealthDisplay : MonoBehaviour
     {
+        [SerializeField] GameObject enemyHealthBar = null;
         Fighter fighter;
 
         void Awake()
         {
             fighter = GameObject.FindWithTag("Player").GetComponent<Fighter>();
         }
-
-        private void Start()
-        {
-           
-        }
-
+                
         void Update()
         {
             if(fighter.GetTarget() == null)
             {
-                GetComponent<Text>().text = "N/A";
+                GetComponent<Text>().enabled = false;
                 return;
             }
+            GetComponent<Text>().enabled = true;
             Health health = fighter.GetTarget();
             GetComponent<Text>().text = String.Format("{0:0}/{1:0}", health.GetHealthPoints(), health.GetMaxHealthPoints());
-           //GameObject.FindWithTag("EnemyHealthBar").GetComponent<HealthBar>().GetHealthRef(health);
+            enemyHealthBar.GetComponent<HealthBar>().GetHealthRef(health);
         }
     }
 }
