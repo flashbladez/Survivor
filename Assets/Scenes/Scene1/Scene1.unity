@@ -1861,6 +1861,26 @@ PrefabInstance:
       propertyPath: healthComponent
       value: 
       objectReference: {fileID: 1376593866}
+    - target: {fileID: 4313109634416753375, guid: 40ec51e192de4f54db7ff5481508ff7f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183846159725228133, guid: 40ec51e192de4f54db7ff5481508ff7f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668086136096320707, guid: 40ec51e192de4f54db7ff5481508ff7f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7789423543469437461, guid: 40ec51e192de4f54db7ff5481508ff7f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7852501167151329012, guid: 40ec51e192de4f54db7ff5481508ff7f,
         type: 3}
       propertyPath: enemyHealthBar

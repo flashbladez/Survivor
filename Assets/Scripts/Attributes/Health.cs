@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Survivor.Saving;
+using GameDevTV.Saving;
 using Survivor.Stats;
 using Survivor.Core;
 using System;
-using Survivor.Utils;
+using GameDevTV.Utils;
 using UnityEngine.Events;
 
 namespace Survivor.Attributes

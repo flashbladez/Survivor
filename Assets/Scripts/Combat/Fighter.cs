@@ -4,10 +4,10 @@ using UnityEngine;
 using Survivor.Movement;
 using Survivor.Core;
 using System;
-using Survivor.Saving;
+using GameDevTV.Saving;
 using Survivor.Attributes;
 using Survivor.Stats;
-using Survivor.Utils;
+using GameDevTV.Utils;
 
 namespace Survivor.Combat{
     public class Fighter : MonoBehaviour, IAction,ISaveable,IModifierProvider

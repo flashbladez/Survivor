@@ -1,5 +1,5 @@
 ﻿using Survivor.Attributes;
-using Survivor.Utils;
+using GameDevTV.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;

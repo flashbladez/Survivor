@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Survivor.Attributes;
 using Survivor.Core;
-using Survivor.Utils;
+using GameDevTV.Utils;
 using System;
 
 namespace Survivor.Control
