@@ -32,6 +32,7 @@ MonoBehaviour:
   waypointTolerance: 1
   waypointDwellTime: 5
   patrolSpeedFraction: 0.2
+  shoutDistance: 5
   patrolPath: {fileID: 0}
 --- !u!114 &7655397319598101681
 MonoBehaviour:
@@ -45,6 +46,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c452f69d38313d47b6f28b659a52f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5318517344578282219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953706749249116567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084b858c7f7148f41a152bc969965183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueIdentifier: 
 --- !u!1001 &6464164789594310464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -125,12 +139,12 @@ PrefabInstance:
     - target: {fileID: 8412886985810960808, guid: 6c2d4f64d914b81419aca9075bc77e7b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3504771178560388806, guid: 6c2d4f64d914b81419aca9075bc77e7b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -830838811058967492, guid: 6c2d4f64d914b81419aca9075bc77e7b,
         type: 3}
@@ -185,6 +199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 691487408, guid: 6c2d4f64d914b81419aca9075bc77e7b, type: 3}
+    - {fileID: 1997304414455785247, guid: 6c2d4f64d914b81419aca9075bc77e7b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6c2d4f64d914b81419aca9075bc77e7b, type: 3}
 --- !u!1 &5953706749249116567 stripped
 GameObject:
