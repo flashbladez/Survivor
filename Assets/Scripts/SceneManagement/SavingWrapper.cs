@@ -45,7 +45,7 @@ namespace Survivor.SceneManagement
         public void Load()
         {
             //call to savingsystem load
-            GetComponent<SavingSystem>().Load(defaultSaveFile);
+            StartCoroutine(GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile));
         }
 
         public void Save()

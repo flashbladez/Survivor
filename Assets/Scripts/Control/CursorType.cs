@@ -7,7 +7,8 @@ namespace Survivor.Control
         Movement,
         Combat,
         UI,
-        Pickup
+        Pickup,
+        FullPickup
     }
 
 }
