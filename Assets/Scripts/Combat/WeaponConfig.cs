@@ -4,11 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Survivor.Attributes;
+using GameDevTV.Inventories;
+using Survivor.Stats;
 
 namespace Survivor.Combat
 {
     [CreateAssetMenu(fileName = "Weapon",menuName = "Weapons/Make New Weapon", order = 0)]
-    public class WeaponConfig : ScriptableObject
+    public class WeaponConfig : EquipableItem,IModifierProvider
     {
         [SerializeField] Weapon equippedPrefab = null;
         [SerializeField] AnimatorOverrideController animatorOverride = null;
@@ -99,6 +101,23 @@ namespace Survivor.Combat
         public float GetRange()
         {
             return weaponRange;
+        }
+
+        public IEnumerable<float> GetAdditiveModifiers(Stat stat)
+        {
+            if(stat == Stat.Damage)
+            {
+                yield return weaponDamage;
+            }
+        }
+
+        public IEnumerable<float> GetPercentageModifiers(Stat stat)
+        {
+            if (stat == Stat.Damage)
+            {
+                yield return percentageBonus;
+            }
+        
         }
     }
 }

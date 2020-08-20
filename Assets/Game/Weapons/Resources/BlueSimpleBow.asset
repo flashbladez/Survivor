@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae60de63fb77cf429071f21d6b6b6b5, type: 3}
   m_Name: BlueSimpleBow
   m_EditorClassIdentifier: 
+  itemID: a178a4ef-2ac2-48d2-b5a6-4d64c7bf9b88
+  displayName: Blue Bow
+  description: Simple blue bow
+  icon: {fileID: 21300000, guid: 4bd98a9cbe05d4d48b491c96b449155a, type: 3}
+  pickup: {fileID: 3457951568630868636, guid: 429576b6b3c83c742bb364609a495150, type: 3}
+  stackable: 0
+  allowedEquipLocation: 5
   equippedPrefab: {fileID: 9211398920013900981, guid: 1e9797b55dbf06c4f8040f7337ef20dd,
     type: 3}
   animatorOverride: {fileID: 22100000, guid: 4a3066767d3f79a459bf60fa4e9960c8, type: 2}

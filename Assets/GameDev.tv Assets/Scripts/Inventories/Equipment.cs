@@ -64,6 +64,10 @@ namespace GameDevTV.Inventories
             }
         }
 
+        public IEnumerable<EquipLocation> GetAllPopulatedSlots()
+        {
+            return equippedItems.Keys;
+        }
         // PRIVATE
 
         object ISaveable.CaptureState()

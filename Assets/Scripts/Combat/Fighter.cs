@@ -8,9 +8,10 @@ using GameDevTV.Saving;
 using Survivor.Attributes;
 using Survivor.Stats;
 using GameDevTV.Utils;
+using GameDevTV.Inventories;
 
 namespace Survivor.Combat{
-    public class Fighter : MonoBehaviour, IAction,ISaveable,IModifierProvider
+    public class Fighter : MonoBehaviour, IAction,ISaveable
     {
        
         [SerializeField] float timeBetweenAttacks = 2f;
@@ -22,11 +23,17 @@ namespace Survivor.Combat{
         float timeSinceLastAttack = Mathf.Infinity;
         WeaponConfig currentWeaponConfig = null;
         LazyValue<Weapon> currentWeapon;
+        Equipment equipment;
 
         void Awake()
         {
             currentWeaponConfig = defaultWeapon;
             currentWeapon = new LazyValue<Weapon>(SetUpDefaultWeapon);
+            equipment = GetComponent<Equipment>();
+            if (equipment)
+            {
+                equipment.equipmentUpdated += UpdateWeapon;
+            }
         }
 
         void Start()
@@ -70,6 +77,20 @@ namespace Survivor.Combat{
             }
             currentWeaponConfig = weapon;
             currentWeapon.value = AttachWeapon(weapon);
+        }
+
+        void UpdateWeapon()
+        {
+            var weapon = equipment.GetItemInSlot(EquipLocation.Weapon) as WeaponConfig;
+            if(weapon == null)
+            {
+                EquipWeapon(defaultWeapon);
+            }
+            else
+            {
+                EquipWeapon(weapon);
+            }
+
         }
 
         Weapon AttachWeapon(WeaponConfig weapon)
@@ -177,22 +198,7 @@ namespace Survivor.Combat{
             string weaponName = (string)state;
             WeaponConfig weapon = UnityEngine.Resources.Load<WeaponConfig>(weaponName);
             EquipWeapon(weapon);
-        }
-
-        public IEnumerable<float> GetAdditiveModifiers(Stat stat)
-        {
-           if (stat == Stat.Damage)
-           {
-                yield return currentWeaponConfig.GetDamage();
-           }
-        }
-
-        public IEnumerable<float> GetPercentageModifiers(Stat stat)
-        {
-            if (stat == Stat.Damage)
-            {
-                yield return currentWeaponConfig.GetPercentageBonus();
-            }
-        }
+        } 
+        
     }    
 }
