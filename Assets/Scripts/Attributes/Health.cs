@@ -113,11 +113,16 @@ namespace Survivor.Attributes
 
         public float GetHealthPoints()
         {
+            if (healthPoints.value > GetComponent<BaseStats>().GetStat(Stat.Health))
+            {
+                healthPoints.value = GetComponent<BaseStats>().GetStat(Stat.Health);
+            }
             return healthPoints.value;
         }
 
         public float GetMaxHealthPoints()
         {
+            
             return GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
