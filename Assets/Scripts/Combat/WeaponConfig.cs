@@ -22,6 +22,18 @@ namespace Survivor.Combat
 
         const string weaponName = "Weapon";
 
+        [SerializeField]
+        Modifier[] additveModifiers;
+        [SerializeField]
+        Modifier[] percentageModifiers;
+
+        [System.Serializable]
+        struct Modifier
+        {
+            public Stat stat;
+            public float value;
+        }
+       
         public Weapon Spawn(Transform rightHand,Transform leftHand, Animator animator)
         {
             DestroyOldWeapon(rightHand, leftHand);
@@ -105,7 +117,14 @@ namespace Survivor.Combat
 
         public IEnumerable<float> GetAdditiveModifiers(Stat stat)
         {
-            if(stat == Stat.Damage)
+            foreach (var modifier in additveModifiers)
+            {
+                if (modifier.stat == stat)
+                {
+                    yield return modifier.value;
+                }
+            }
+            if (stat == Stat.Damage)
             {
                 yield return weaponDamage;
             }
@@ -113,6 +132,13 @@ namespace Survivor.Combat
 
         public IEnumerable<float> GetPercentageModifiers(Stat stat)
         {
+            foreach (var modifier in percentageModifiers)
+            {
+                if (modifier.stat == stat)
+                {
+                    yield return modifier.value;
+                }
+            }
             if (stat == Stat.Damage)
             {
                 yield return percentageBonus;

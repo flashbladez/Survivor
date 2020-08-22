@@ -28,3 +28,7 @@ MonoBehaviour:
   projectile: {fileID: 2927701000727922118, guid: ea0adbe6dd0eab441ab987fee63f9cb8,
     type: 3}
   isRightHanded: 0
+  additveModifiers:
+  - stat: 0
+    value: 10
+  percentageModifiers: []
