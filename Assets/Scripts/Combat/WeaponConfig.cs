@@ -14,8 +14,8 @@ namespace Survivor.Combat
     {
         [SerializeField] Weapon equippedPrefab = null;
         [SerializeField] AnimatorOverrideController animatorOverride = null;
-        [SerializeField] float weaponRange = 2f;
-        [SerializeField] float weaponDamage = 5f;
+        [SerializeField] float baseWeaponRange = 2f;
+        [SerializeField] float baseWeaponDamage = 5f;
         [SerializeField] float percentageBonus = 0f;
         [SerializeField] Projectile projectile = null;
         [SerializeField] bool isRightHanded = true;
@@ -102,7 +102,7 @@ namespace Survivor.Combat
 
         public float GetDamage()
         {
-            return weaponDamage;
+            return baseWeaponDamage;
         }
 
         public float GetPercentageBonus()
@@ -112,7 +112,7 @@ namespace Survivor.Combat
 
         public float GetRange()
         {
-            return weaponRange;
+            return baseWeaponRange;
         }
 
         public IEnumerable<float> GetAdditiveModifiers(Stat stat)
@@ -126,7 +126,7 @@ namespace Survivor.Combat
             }
             if (stat == Stat.Damage)
             {
-                yield return weaponDamage;
+                yield return baseWeaponDamage;
             }
         }
 
@@ -142,8 +142,7 @@ namespace Survivor.Combat
             if (stat == Stat.Damage)
             {
                 yield return percentageBonus;
-            }
-        
+            }     
         }
     }
 }
