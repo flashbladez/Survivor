@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: e5795942-a1f1-44e5-942a-a32fcd622569
   displayName: Red Bow
-  description: A simple red bow
+  description: 'A simple red bow
+
+'
   icon: {fileID: 21300000, guid: 075396dc2982b1c48b25c41c17d6edcb, type: 3}
   pickup: {fileID: 3457951568630868636, guid: 429576b6b3c83c742bb364609a495150, type: 3}
   stackable: 0
@@ -28,7 +30,3 @@ MonoBehaviour:
   projectile: {fileID: 4532230898828994009, guid: 938ad26552978d44bac48e2db8d61945,
     type: 3}
   isRightHanded: 0
-  additveModifiers:
-  - stat: 0
-    value: 10
-  percentageModifiers: []

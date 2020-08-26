@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 8f938a9e-bc33-4add-8b28-471d46516767
   displayName: Unarmed
-  description: You are unarmed
+  description: 'You are unarmed
+
+'
   icon: {fileID: 0}
   pickup: {fileID: 0}
   stackable: 0
@@ -22,8 +24,8 @@ MonoBehaviour:
   equippedPrefab: {fileID: 5875571899661143011, guid: 191567bb0990d8046a5fcb76ffb5393b,
     type: 3}
   animatorOverride: {fileID: 0}
-  weaponRange: 2
-  weaponDamage: 3
+  baseWeaponRange: 2
+  baseWeaponDamage: 5
   percentageBonus: 0
   projectile: {fileID: 0}
   isRightHanded: 1

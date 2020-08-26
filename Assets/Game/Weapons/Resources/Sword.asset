@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 34f2d9ac-7719-4648-97df-f65b424f90f6
   displayName: Basic Sword
-  description: A basic sword
+  description: 'A basic sword
+
+'
   icon: {fileID: 21300000, guid: d19901b0ee3c38743a7d383bd484b0b5, type: 3}
   pickup: {fileID: 8707720427395192858, guid: c9cb90245bacef7439b0a392d766a143, type: 3}
   stackable: 0
@@ -27,7 +29,3 @@ MonoBehaviour:
   percentageBonus: 0
   projectile: {fileID: 0}
   isRightHanded: 1
-  additveModifiers:
-  - stat: 0
-    value: 12
-  percentageModifiers: []

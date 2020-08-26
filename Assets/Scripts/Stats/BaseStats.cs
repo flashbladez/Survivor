@@ -69,7 +69,7 @@ namespace Survivor.Stats
             return currentLevel.value;
         }
 
-        float GetAdditiveModifiers(Stat stat)
+        public float GetAdditiveModifiers(Stat stat)
         {
             if (!shouldUseModifiers)
             {

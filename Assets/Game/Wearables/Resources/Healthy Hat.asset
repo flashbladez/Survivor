@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 26c33e44-4c4d-4d91-980b-a87d8d785db4
   displayName: Healthy Hat
-  description: This hat makes you healthy
+  description: 'This hat makes you healthy
+
+'
   icon: {fileID: 21300000, guid: c1b61b3a91732a747a8496fc75a13fe2, type: 3}
   pickup: {fileID: 5645391462873153440, guid: c47f030c9f257384da8e68dcd98e2dbc, type: 3}
   stackable: 0

@@ -98,7 +98,7 @@ namespace GameDevTV.Inventories
             return displayName;
         }
 
-        public string GetDescription()
+        public virtual string GetDescription()
         {
             return description;
         }
