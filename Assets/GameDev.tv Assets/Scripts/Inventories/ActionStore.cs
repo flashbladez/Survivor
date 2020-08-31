@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameDevTV.Saving;
+using Survivor.Attributes;
 
 namespace GameDevTV.Inventories
 {
@@ -92,6 +93,7 @@ namespace GameDevTV.Inventories
         /// <returns>False if the action could not be executed.</returns>
         public bool Use(int index, GameObject user)
         {
+
             if (dockedItems.ContainsKey(index))
             {
                 dockedItems[index].item.Use(user);
@@ -99,8 +101,13 @@ namespace GameDevTV.Inventories
                 {
                     RemoveItems(index, 1);
                 }
+                if (index == 0)
+                {
+                    GetComponent<Health>().Heal(20f);
+                }
                 return true;
             }
+           
             return false;
         }
 

@@ -7,6 +7,7 @@ using Survivor.Attributes;
 using System;
 using UnityEngine.EventSystems;
 using UnityEngine.AI;
+using GameDevTV.Inventories;
 
 namespace Survivor.Control{
     public class PlayerController : MonoBehaviour
@@ -33,6 +34,7 @@ namespace Survivor.Control{
 
         void Update()
         {
+            CheckSpecialAbilityKeys();
             if (InteractWithUI())
             {
                 return;
@@ -55,6 +57,15 @@ namespace Survivor.Control{
                 return;
             }
             SetCursor(CursorType.None);
+        }
+
+        void CheckSpecialAbilityKeys()
+        {
+            var actionStore = GetComponent<ActionStore>();
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                actionStore.Use(0, gameObject);
+            }
         }
 
         bool InteractWithComponent()

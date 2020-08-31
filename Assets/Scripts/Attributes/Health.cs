@@ -79,9 +79,9 @@ namespace Survivor.Attributes
             }
         }
 
-        public void Heal(float healthTorestore)
+        public void Heal(float healthToRestore)
         {
-            healthPoints.value = Mathf.Min(healthPoints.value + healthTorestore, GetMaxHealthPoints());
+            healthPoints.value = Mathf.Min(healthPoints.value + healthToRestore, GetMaxHealthPoints());
 
         }
 
