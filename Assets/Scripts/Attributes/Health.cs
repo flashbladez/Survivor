@@ -107,6 +107,7 @@ namespace Survivor.Attributes
                 return;
             }
             isDead = true;
+            GetComponent<Collider>().enabled = false;
             GetComponent<Animator>().SetTrigger("die");
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }

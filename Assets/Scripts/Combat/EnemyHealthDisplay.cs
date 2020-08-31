@@ -15,6 +15,7 @@ namespace Survivor.Combat
         void Awake()
         {
             fighter = GameObject.FindWithTag("Player").GetComponent<Fighter>();
+           // GetComponent<Text>().enabled = false;
         }
                 
         void Update()

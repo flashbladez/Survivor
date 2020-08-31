@@ -15,10 +15,35 @@ MonoBehaviour:
   potentialDrops:
   - item: {fileID: 11400000, guid: 28e6714756cbfb14781fb686dab9fddf, type: 2}
     relativeChance:
-    - 99
-    minNumber: 32000000
-    maxNumber: 5a000000
+    - 10
+    minNumber: 0100000001000000
+    maxNumber: 0200000003000000
+  - item: {fileID: 11400000, guid: a7f998b766352b644bec4ab6f1ed8ed2, type: 2}
+    relativeChance:
+    - 5
+    - 5
+    minNumber: 0100000002000000
+    maxNumber: 0100000002000000
+  - item: {fileID: 11400000, guid: 254319debf764734494bb38105c84184, type: 2}
+    relativeChance:
+    - 6
+    - 5
+    minNumber: 0200000004000000
+    maxNumber: 0300000004000000
+  - item: {fileID: 11400000, guid: 3d1928a69aeab4240b246886edbb44dd, type: 2}
+    relativeChance:
+    - 8
+    - 6
+    minNumber: 0100000002000000
+    maxNumber: 0100000003000000
+  - item: {fileID: 11400000, guid: 6f8c0903ee0eefa46b8e2061a309fc06, type: 2}
+    relativeChance:
+    - 8
+    - 6
+    minNumber: 0100000002000000
+    maxNumber: 0100000003000000
   dropChancePercenatge:
-  - 99
-  minDrops: 01000000
-  maxDrops: 03000000
+  - 50
+  - 90
+  minDrops: 0300000006000000
+  maxDrops: 060000000c000000

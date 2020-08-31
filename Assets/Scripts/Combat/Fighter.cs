@@ -18,13 +18,15 @@ namespace Survivor.Combat{
         [SerializeField] WeaponConfig defaultWeapon = null;
         [SerializeField] Transform rightHandTransform = null;
         [SerializeField] Transform leftHandTransform = null;
-       
+        [SerializeField] HealthBar healthBar;
+
         Health target;
         float timeSinceLastAttack = Mathf.Infinity;
         WeaponConfig currentWeaponConfig = null;
         LazyValue<Weapon> currentWeapon;
         Equipment equipment;
-
+       
+       
         void Awake()
         {
             currentWeaponConfig = defaultWeapon;
@@ -137,6 +139,8 @@ namespace Survivor.Combat{
                 return false;
             }
             Health targetToTest = combatTarget.GetComponent<Health>();
+            
+
             return targetToTest != null && !targetToTest.IsDead();
         }
 
@@ -145,6 +149,10 @@ namespace Survivor.Combat{
         {
             GetComponent<ActionScheduler>().StartAction(this);
             target = combatTarget.GetComponent<Health>();
+           // if (target != null)
+           // {         
+           //    healthBar.GetHealthRef(target);
+          //  }
         }
 
         //animation event
