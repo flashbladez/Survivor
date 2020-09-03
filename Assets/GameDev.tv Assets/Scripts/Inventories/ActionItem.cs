@@ -25,6 +25,7 @@ namespace GameDevTV.Inventories
         /// <param name="user">The character that is using this action.</param>
         public virtual void Use(GameObject user)
         {
+      
             Debug.Log("Using action: " + this);
         }
 

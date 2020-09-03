@@ -66,6 +66,10 @@ namespace Survivor.Control{
             {
                 actionStore.Use(0, gameObject);
             }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                actionStore.Use(1, gameObject);
+            }
         }
 
         bool InteractWithComponent()

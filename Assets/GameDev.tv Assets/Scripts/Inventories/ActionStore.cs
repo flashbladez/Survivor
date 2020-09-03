@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameDevTV.Saving;
 using Survivor.Attributes;
+using GameDevTV.UI.Inventories;
 
 namespace GameDevTV.Inventories
 {
@@ -20,6 +21,7 @@ namespace GameDevTV.Inventories
         {
             public ActionItem item;
             public int number;
+           
         }
 
         // PUBLIC
@@ -28,7 +30,7 @@ namespace GameDevTV.Inventories
         /// Broadcasts when the items in the slots are added/removed.
         /// </summary>
         public event Action storeUpdated;
-
+        
         /// <summary>
         /// Get the action at the given index.
         /// </summary>
@@ -70,6 +72,7 @@ namespace GameDevTV.Inventories
                 if (object.ReferenceEquals(item, dockedItems[index].item))
                 {
                     dockedItems[index].number += number;
+                   
                 }
             }
             else
@@ -77,6 +80,7 @@ namespace GameDevTV.Inventories
                 var slot = new DockedItemSlot();
                 slot.item = item as ActionItem;
                 slot.number = number;
+               
                 dockedItems[index] = slot;
             }
             if (storeUpdated != null)
@@ -93,18 +97,20 @@ namespace GameDevTV.Inventories
         /// <returns>False if the action could not be executed.</returns>
         public bool Use(int index, GameObject user)
         {
-
+           
             if (dockedItems.ContainsKey(index))
-            {
+            {            
                 dockedItems[index].item.Use(user);
+
+                if (index == 0)
+                {              
+                    GetComponent<Health>().Heal(20f);
+                }
                 if (dockedItems[index].item.isConsumable())
                 {
                     RemoveItems(index, 1);
-                }
-                if (index == 0)
-                {
-                    GetComponent<Health>().Heal(20f);
-                }
+                }                   
+                                         
                 return true;
             }
            
