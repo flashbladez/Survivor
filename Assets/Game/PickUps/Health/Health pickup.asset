@@ -19,3 +19,4 @@ MonoBehaviour:
   pickup: {fileID: 8338039753637430259, guid: 7463077ed88d96548baf104963290b7b, type: 3}
   stackable: 1
   consumable: 1
+  actionItemType: 1
