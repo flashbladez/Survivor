@@ -26,6 +26,7 @@ namespace GameDevTV.Inventories
         [Tooltip("Does an instance of this item get consumed every time it's used.")]
         [SerializeField] bool consumable = false;
         [SerializeField] ActionItemType actionItemType;
+        [SerializeField] GameObject HealParticleEffect = null;
         // PUBLIC
 
         /// <summary>
@@ -38,6 +39,7 @@ namespace GameDevTV.Inventories
             if (actionItemType.ToString() == "Healing")
             {
                 user.GetComponent<Health>().Heal(20f);
+                HealEffect(user);
                 Debug.Log(actionItemType + " OK");
             }
             if (actionItemType.ToString() == "Mana")
@@ -50,6 +52,10 @@ namespace GameDevTV.Inventories
         public bool isConsumable()
         {
             return consumable;
+        }
+        void HealEffect(GameObject user)
+        {
+            Instantiate(HealParticleEffect, user.transform);
         }
     }
 }

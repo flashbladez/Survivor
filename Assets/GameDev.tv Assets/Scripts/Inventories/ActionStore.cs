@@ -102,10 +102,6 @@ namespace GameDevTV.Inventories
             {            
                 dockedItems[index].item.Use(user);
 
-                if (index == 0)
-                {              
-                    GetComponent<Health>().Heal(20f);
-                }
                 if (dockedItems[index].item.isConsumable())
                 {
                     RemoveItems(index, 1);

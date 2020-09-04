@@ -20,3 +20,5 @@ MonoBehaviour:
   stackable: 1
   consumable: 1
   actionItemType: 1
+  HealParticleEffect: {fileID: 4722557218700479158, guid: 06d21101bcccf83419c01935111f4562,
+    type: 3}
