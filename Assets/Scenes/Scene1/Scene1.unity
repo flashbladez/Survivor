@@ -3115,7 +3115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 463894303, guid: f908a2c216e405b43a3f48c3e7a5c308, type: 3}
       propertyPath: sceneToLoad
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 463894303, guid: f908a2c216e405b43a3f48c3e7a5c308, type: 3}
       propertyPath: spawnPoint
@@ -3758,7 +3758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 463894303, guid: f908a2c216e405b43a3f48c3e7a5c308, type: 3}
       propertyPath: sceneToLoad
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 463894303, guid: f908a2c216e405b43a3f48c3e7a5c308, type: 3}
       propertyPath: spawnPoint
