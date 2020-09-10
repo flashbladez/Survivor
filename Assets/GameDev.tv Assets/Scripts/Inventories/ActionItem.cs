@@ -36,17 +36,25 @@ namespace GameDevTV.Inventories
         public virtual void Use(GameObject user)
         {
 
-            if (actionItemType.ToString() == "Healing")
+            if (actionItemType == ActionItemType.Healing)
             {
                 user.GetComponent<Health>().Heal(20f);
                 HealEffect(user);
                 Debug.Log(actionItemType + " OK");
             }
-            if (actionItemType.ToString() == "Mana")
+            if (actionItemType == ActionItemType.Mana)
             {
                 Debug.Log(actionItemType + " OK");
             }
-            Debug.Log("Using action: " + this);
+            if (actionItemType == ActionItemType.Spell)
+            {
+                Debug.Log(actionItemType + " OK");
+            }
+            if (actionItemType == ActionItemType.Scroll)
+            {
+                Debug.Log(actionItemType + " OK");
+            }
+           
         }
 
         public bool isConsumable()
