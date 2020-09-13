@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: -830838811058967492}
   - component: {fileID: 1409511399}
   - component: {fileID: 8569091967419965504}
-  - component: {fileID: 1997304414455785247}
   - component: {fileID: 117369647800011499}
   - component: {fileID: 4937671492262925134}
   m_Layer: 0
@@ -152,6 +151,7 @@ MonoBehaviour:
   defaultWeapon: {fileID: 0}
   rightHandTransform: {fileID: 0}
   leftHandTransform: {fileID: 0}
+  healthBar: {fileID: 0}
 --- !u!114 &1409511399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,19 +220,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1997304414455785247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 804599648991682263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueIdentifier: 
 --- !u!54 &117369647800011499
 Rigidbody:
   m_ObjectHideFlags: 0

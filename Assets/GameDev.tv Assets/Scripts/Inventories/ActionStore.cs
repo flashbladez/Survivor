@@ -67,6 +67,13 @@ namespace GameDevTV.Inventories
         /// <param name="number">How many items to add.</param>
         public void AddAction(InventoryItem item, int index, int number)
         {
+            if (item == null)
+            {
+                Debug.Log("Attempting to add null item.");
+                return;
+            }
+            Debug.Log($"Adding {number} {item}(s) to slot {index}");
+
             if (dockedItems.ContainsKey(index))
             {  
                 if (object.ReferenceEquals(item, dockedItems[index].item))
@@ -176,6 +183,7 @@ namespace GameDevTV.Inventories
             var state = new Dictionary<int, DockedItemRecord>();
             foreach (var pair in dockedItems)
             {
+                Debug.Log($"Slot {pair.Key}, {pair.Value.item.GetItemID()}, Qty={pair.Value.number}");
                 var record = new DockedItemRecord();
                 record.itemID = pair.Value.item.GetItemID();
                 record.number = pair.Value.number;
@@ -186,9 +194,11 @@ namespace GameDevTV.Inventories
 
         void ISaveable.RestoreState(object state)
         {
+            Debug.Log("ActionStore.RestoreState()");
             var stateDict = (Dictionary<int, DockedItemRecord>)state;
             foreach (var pair in stateDict)
             {
+                Debug.Log($"Slot {pair.Key}, {pair.Value.itemID}, Qty={pair.Value.number}");
                 AddAction(InventoryItem.GetFromID(pair.Value.itemID), pair.Key, pair.Value.number);
             }
         }

@@ -20,3 +20,4 @@ MonoBehaviour:
   stackable: 1
   consumable: 1
   actionItemType: 2
+  HealParticleEffect: {fileID: 0}

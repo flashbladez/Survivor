@@ -94,6 +94,7 @@ namespace GameDevTV.Inventories
                     equippedItems[pair.Key] = item;
                 }
             }
+            equipmentUpdated();
         }
     }
 }
